@@ -1,0 +1,77 @@
+New Load.Tx623096-lv_MPAN1610031119309 Bus1=bus_36061716_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC4profile1minres
+New Load.Tx623096-lv_MPAN1610031119460 Bus1=bus_36041543_01.1 phases=1 kW=2 kvar=2 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_854
+New Load.Tx623096-lv_MPAN1610031119415 Bus1=bus_36049314.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_684
+New Load.Tx623096-lv_MPAN1610031119390 Bus1=bus_36049466_01.1 phases=1 kW=2 kvar=2 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_107
+New Load.Tx623096-lv_MPAN1610031119521 Bus1=bus_36067601_01.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_502
+New Load.Tx623096-lv_MPAN1610031119489 Bus1=bus_36049362.2 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_20
+New Load.Tx623096-lv_MPAN1620000755540 Bus1=bus_36041837_01.2 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_443
+New Load.Tx623096-lv_MPAN1610032130749 Bus1=bus_36049367.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_908
+New Load.Tx623096-lv_MPAN1610032130720 Bus1=bus_36048960_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119220 Bus1=bus_36049000_01.2 phases=1 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119911 Bus1=bus_36041560_01.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_45
+New Load.Tx623096-lv_MPAN1610031119595 Bus1=bus_36067529.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_946
+New Load.Tx623096-lv_MPAN1610031119451 Bus1=bus_36041538.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_181
+New Load.Tx623096-lv_MPAN1610031119354 Bus1=bus_36049456_01.3 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_370
+New Load.Tx623096-lv_MPAN1610031119293 Bus1=bus_36059330_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119178 Bus1=bus_36048945_01.1 phases=1 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119070 Bus1=bus_36059327_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC4profile1minres
+New Load.Tx623096-lv_MPAN1610031119577 Bus1=bus_36067558_01.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_206
+New Load.Tx623096-lv_MPAN1610031182667 Bus1=bus_36041264_01.2 phases=1 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119586 Bus1=bus_36067551.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_96
+New Load.Tx623096-lv_MPAN1610031119888 Bus1=bus_36041801_01.2 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_433
+New Load.Tx623096-lv_MPAN1610031179344 Bus1=bus_36040688_01.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_278
+New Load.Tx623096-lv_MPAN1610031119814 Bus1=bus_36052659_01.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_101
+New Load.Tx623096-lv_MPAN1610032188181 Bus1=bus_36048973_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119318 Bus1=bus_36041829_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119257 Bus1=bus_36048970_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031179317 Bus1=bus_36041774_01.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_499
+New Load.Tx623096-lv_MPAN1610031119406 Bus1=bus_36049470_01.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_240
+New Load.Tx623096-lv_MPAN1610031119823 Bus1=bus_36041079.3 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_350
+New Load.Tx623096-lv_MPAN1610031119530 Bus1=bus_36067434_01.3 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_559
+New Load.Tx623096-lv_MPAN1610031119327 Bus1=bus_36048933_01.1.2.3 phases=3 kW=1 kvar=1 kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_549
+New Load.Tx623096-lv_MPAN1610031119210 Bus1=bus_36048933_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1600000186254 Bus1=bus_36049486_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC4profile1minres
+New Load.Tx623096-lv_MPAN1610031119841 Bus1=bus_36041258_01.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC2LoadProfile_422
+New Load.Tx623096-lv_MPAN1610031119442 Bus1=bus_36049478_01.3 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_386
+New Load.Tx623096-lv_MPAN1610031119363 Bus1=bus_36049287.3 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_381
+New Load.Tx623096-lv_MPAN1610031119284 Bus1=bus_36048973_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119780 Bus1=bus_36040577_01.2 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_281
+New Load.Tx623096-lv_MPAN1610031119540 Bus1=bus_36067420.3 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_180
+New Load.Tx623096-lv_MPAN1610031179326 Bus1=bus_36041852_01.3 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_128
+New Load.Tx623096-lv_MPAN1610031179353 Bus1=bus_36040625_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119805 Bus1=bus_36052658_01.3 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_16
+New Load.Tx623096-lv_MPAN1610031119248 Bus1=bus_36048973_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119025 Bus1=bus_36086054_01.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_754
+New Load.Tx623096-lv_MPAN1610031119433 Bus1=bus_36049378.3 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_505
+New Load.Tx623096-lv_MPAN1610031119503 Bus1=bus_36049367.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_723
+New Load.Tx623096-lv_MPAN1610032188172 Bus1=bus_36048977_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119201 Bus1=bus_36048935_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031179362 Bus1=bus_36040625_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC4profile1minres
+New Load.Tx623096-lv_MPAN1610031119879 Bus1=bus_36041196.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_762
+New Load.Tx623096-lv_MPAN1610031119470 Bus1=bus_36049503_01.2 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_269
+New Load.Tx623096-lv_MPAN1610031119372 Bus1=bus_36049462_01.2 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_194
+New Load.Tx623096-lv_MPAN1630000452208 Bus1=bus_36041837_01.2 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_65
+New Load.Tx623096-lv_MPAN1610031119568 Bus1=bus_36067317.2 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_426
+New Load.Tx623096-lv_MPAN1610031119150 Bus1=bus_36048964_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119016 Bus1=bus_36086054_01.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_703
+New Load.Tx623096-lv_MPAN1610031119381 Bus1=bus_36049302.1 phases=1 kW=2 kvar=2 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_978
+New Load.Tx623096-lv_MPAN1610031119790 Bus1=bus_36040581.2 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC2LoadProfile_552
+New Load.Tx623096-lv_MPAN1610031119498 Bus1=bus_36049531_01.2 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_44
+New Load.Tx623096-lv_MPAN1610031119559 Bus1=bus_36067332_01.2 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_583
+New Load.Tx623096-lv_MPAN1610031119832 Bus1=bus_36041089_01.3 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_279
+New Load.Tx623096-lv_MPAN1610031119336 Bus1=bus_36048970_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119902 Bus1=bus_36041806_01.1 phases=1 kW=2 kvar=2 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_543
+New Load.Tx623096-lv_MPAN1610031179335 Bus1=bus_36040862_01.3 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_444
+New Load.Tx623096-lv_MPAN1610031119424 Bus1=bus_36049475_01.2 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_118
+New Load.Tx623096-lv_MPAN1610031179308 Bus1=bus_36040625_01.1.2.3 phases=3 kW=1 kvar=1 kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_380
+New Load.Tx623096-lv_MPAN1610031119169 Bus1=bus_36048950_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119512 Bus1=bus_36049497_01.1 phases=1 kW=2 kvar=2 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_765
+New Load.Tx623096-lv_MPAN1610031119043 Bus1=bus_36079884_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119196 Bus1=bus_36048943_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119860 Bus1=bus_36041228_01.1 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC2LoadProfile_919
+New Load.Tx623096-lv_MPAN1610032188163 Bus1=bus_36048963_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610032188190 Bus1=bus_36041264_01.2 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_693
+New Load.Tx623096-lv_MPAN1610032089694 Bus1=bus_36048943_01.1.2.3 phases=3 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.4 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031119897 Bus1=bus_36041804_01.3 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC1LoadProfile_971
+New Load.Tx623096-lv_MPAN1610031182676 Bus1=bus_36041264_01.2 phases=1 kW=1 pf=0.95 model=8 ZIPV=(0 1 0 1 0 0 0) kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC3profile1minres
+New Load.Tx623096-lv_MPAN1610031179371 Bus1=bus_36040717_01.3 phases=1 kW=1 kvar=1 kv=0.23 Vminpu=0.5 Vmaxpu=1.5 status=variable Daily=PC2LoadProfile_127

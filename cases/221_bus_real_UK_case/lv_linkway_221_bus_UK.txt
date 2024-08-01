@@ -1,0 +1,1 @@
+New Line.Tx623096-lv_linkway36085587 Bus1=bus_36085579.1.2.3 Bus2=bus_36085587_36085583.1.2.3 phases=3 R1=0.0001 X1=0 R0=0.0001 X0=0 length=1 units=m

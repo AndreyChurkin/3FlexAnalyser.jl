@@ -1,0 +1,1 @@
+New Transformer.Tx623096-DxTx36085581 buses=[sourcebus bus_36085578] conns=[delta wye] kvs=[11 0.433] kvas=[500 500] xhl=4.5754 %loadloss=1.3616

@@ -1,0 +1,12 @@
+New generator.g1 Bus1=bus_36048945_01.1 phases=1 kW=1 kvar=1  Model=3
+New generator.g2 Bus1=bus_36049497_01.1 phases=1 kW=1 kvar=1  Model=3
+New generator.g3 Bus1=bus_36067558_01.1 phases=1 kW=1 kvar=1  Model=3
+New generator.g4 Bus1=bus_36041228_01.1 phases=1 kW=1 kvar=1  Model=3
+New generator.g5 Bus1=bus_36049000_01.2 phases=1 kW=1 kvar=1  Model=3
+New generator.g6 Bus1=bus_36049503_01.2 phases=1 kW=1 kvar=1  Model=3
+New generator.g7 Bus1=bus_36067332_01.2 phases=1 kW=1 kvar=1  Model=3
+New generator.g8 Bus1=bus_36040577_01.2 phases=1 kW=1 kvar=1  Model=3
+New generator.g9 Bus1=bus_36049456_01.3 phases=1 kW=1 kvar=1  Model=3
+New generator.g10 Bus1=bus_36049478_01.3 phases=1 kW=1 kvar=1  Model=3
+New generator.g11 Bus1=bus_36067434_01.3 phases=1 kW=1 kvar=1  Model=3
+New generator.g12 Bus1=bus_36041804_01.3 phases=1 kW=1 kvar=1  Model=3

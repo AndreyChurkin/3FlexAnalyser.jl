@@ -1,0 +1,4 @@
+New Line.Tx623096-lv_fuseway36085592 Bus1=bus_36085579.1.2.3 Bus2=bus_36085592_36085566.1.2.3 phases=3 R1=0.0001 X1=0 R0=0.0001 X0=0 length=1 units=m
+New Line.Tx623096-lv_fuseway36085589 Bus1=bus_36085579.1.2.3 Bus2=bus_36085589_36085569.1.2.3 phases=3 R1=0.0001 X1=0 R0=0.0001 X0=0 length=1 units=m
+New Line.Tx623096-lv_fuseway492757292 Bus1=bus_492757287.1.2.3 Bus2=bus_492757292_492757520.1.2.3 phases=3 R1=0.0001 X1=0 R0=0.0001 X0=0 length=1 units=m
+New Line.Tx623096-lv_fuseway36085591 Bus1=bus_36085579.1.2.3 Bus2=bus_36085591_36085560.1.2.3 phases=3 R1=0.0001 X1=0 R0=0.0001 X0=0 length=1 units=m

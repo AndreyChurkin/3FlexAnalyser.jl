@@ -1,0 +1,52 @@
+! ! ! This is a simple illustrative 5-bus system with unbalanced loads and a balanced three-phase flexible generator
+
+clear
+
+New circuit.LV_unbalanced_testcase
+
+~ BasekV=0.4 pu=1 ISC3=3000 ISC1=1000
+Set voltagebases=[0.4]
+Set tolerance=0.000001
+Set defaultbasefreq=60
+
+New LineCode.4c_70 nphases=3 R1=0.446 X1=0.071 R0=1.505 X0=0.083 C1=0 C0=0 Units=km
+
+! single phase loads:
+New Load.LOAD21 Phases=1 Bus1=3.1  kW=7.0  PF=0.9062   model=1
+New Load.LOAD22 Phases=1 Bus1=3.2  kW=4.5  PF=0.9062   model=1
+New Load.LOAD23 Phases=1 Bus1=3.3  kW=3.5  PF=0.9062   model=1
+
+! three phase loads:
+New Load.LOAD1 Phases=3 Bus1=2  kW=15 kvar=7   model=1
+! New Load.LOAD2 Phases=3 Bus1=3  kW=15 kvar=7   model=1
+New Load.LOAD3 Phases=3 Bus1=4  kW=15 kvar=7   model=1
+New Load.LOAD4 Phases=3 Bus1=5  kW=15 kvar=7   model=1
+
+New Line.LINE0 Bus1=SourceBus Bus2=1 phases=3 Linecode=4c_70 Length=0.100 Units=m
+New Line.LINE12 Bus1=1 Bus2=2 phases=3 Linecode=4c_70 Length=0.100 Units=km Normamps=300
+New Line.LINE14 Bus1=1 Bus2=4 phases=3 Linecode=4c_70 Length=0.100 Units=km Normamps=300
+New Line.LINE23 Bus1=2 Bus2=3 phases=3 Linecode=4c_70 Length=0.100 Units=km Normamps=300
+New Line.LINE45 Bus1=4 Bus2=5 phases=3 Linecode=4c_70 Length=0.100 Units=km Normamps=300
+
+! flexible three-phase generator:
+New Generator.G1 phases=3 Bus1=3  kW=8   Model=3
+
+! Flexible single-phase generators:
+! phase a:
+! New Generator.G1 phases=1 Bus1=3.1  kW=8  Model=3
+! phase b:
+! New Generator.G2 phases=1 Bus1=3.2  kW=8   Model=3
+! phase c:
+! New Generator.G3 phases=1 Bus1=3.3  kW=8   Model=3
+
+
+
+
+
+
+
+
+
+
+
+solve

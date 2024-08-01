@@ -1,0 +1,22 @@
+! ! ! This is a real anonymised low voltage distribution network with 221 buses in the United Kingdom
+
+clear
+
+new circuit.221_bus_UK basekv=11 pu=1.0 angle=0 frequency=50 phases=3
+
+Redirect DxTx_221_bus_UK.txt
+
+Redirect loads_221_bus_UK.txt
+
+Redirect lv_cable_221_bus_UK.txt
+Redirect lv_fuse_221_bus_UK.txt
+Redirect lv_linkway_221_bus_UK.txt
+Redirect lv_service_221_bus_UK.txt
+
+Redirect flex_unit_10.txt
+
+//Some settings for simulation
+!set voltagebases=[11,(0.23 3 sqrt *), 0.23]
+Set voltagebases=[0.433]
+!Set voltagebases=[11, 0.4, 0.23]
+

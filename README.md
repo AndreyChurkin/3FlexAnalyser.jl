@@ -2,7 +2,7 @@
 **Julia tool for modelling and analysing flexibility in low voltage distribution networks, with nonlinear three-phase power flow and explicit constraints on voltage unbalance and phase coordination**
 
 The tool enables quantifying the impacts of phase unbalance, voltage unbalance and distributed energy resources (DER) coordination on flexibility services in low voltage distribution networks.
-The main idea of aggregated flexibility modelling in the unbalanced setting was originally formulated by Wangwei Kong (The University of Manchester → National Grid). The tool was further developed, tested and published by Andrey Churkin (The University of Manchester --> Imperial College London).
+The main idea of aggregated flexibility modelling in the unbalanced setting was originally formulated by Wangwei Kong (The University of Manchester →➔ National Grid). The tool was further developed, tested and published by Andrey Churkin (The University of Manchester --> Imperial College London).
 
 ... don't forget to mention PowerModelsDistribution.jl ...
 

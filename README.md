@@ -4,7 +4,12 @@
 The tool enables quantifying the impacts of phase unbalance, voltage unbalance and distributed energy resources (DER) coordination on flexibility services in low voltage distribution networks.
 The main idea of aggregated flexibility modelling in the unbalanced setting was originally formulated by Wangwei Kong (The University of Manchester ➔ National Grid). The tool was further developed, tested and published by Andrey Churkin (The University of Manchester ➔ Imperial College London).
 
-At the core of **3FlexAnalyser.jl** lies a nonlinear three-phase optimal power flow (OPF) model adapted from **PowerModelsDistribution.jl**[1].
+At the core of **3FlexAnalyser.jl** lies a nonlinear three-phase optimal power flow (OPF) model adapted from **PowerModelsDistribution.jl** [1]. The mathematical formulation of the three-phase OPF problem is extended by including flexible units, voltage unbalance limits, and phase coordination constraints. To characterise feasible flexibility services available in distribution networks, the concept of aggregated P-Q flexibility areas is applied. That is, the limits of aggregated P-Q flexibility at a selected location are estimated by iteratively solving the three-phase power flow model. Therefore, the tool allows to directly translate voltage unbalance and phase coordination constraints as reductions in the aggregated P-Q flexibility.
+
+A high-level overview of the proposed framework is presented in the diagram below.
+The inputs include network data, available flexible resources, load and flexibility unbalances, VUF limit, and phase coordination assumptions.
+Then, the limits of flexibility services from DER are estimated using the concept of P-Q flexibility areas. Next, voltage unbalance and phase coordination constraints are imposed and the P-Q flexibility areas are estimated again.
+Finally, the aggregated flexibility is compared for cases with and without these constraints and the impacts of phase unbalance and DER coordination are quantified.
 
 <img src="framework_flowchart.png" alt="Framework" width="1000">
 

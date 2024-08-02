@@ -56,6 +56,19 @@ The code reads data about the network and flexibility from `/cases` in the OpenD
 Yet, many parameters of the simulations have to be specified in this code to produce correct simulations.
 For example, it is necessary to select the case study (.dss file), P-Q limits of flexible units, phase (A, B, or C) for which the P-Q flexibility area will be maximised, location of flexibility aggregation, number of simulations (points used to estimate P-Q flexibility areas), voltage unbalance constraints, phase coordination constraints, some plotting parameters, etc.
 
+The most important modelling parameters are explained below:
+- `eng = parse_file()` selects the case study and parses the corresponding .dss file.
+- `gen_lim_Pmax`, `gen_lim_Pmin`, `gen_lim_Qmax`, `gen_lim_Qmin` define the P-Q limits of flexible units.
+- `phase_i` selects the phase to optimise (P-Q flexibility area will be maximised for this phase).
+- `v_ub` and `v_lb` define the allowed (feasible) voltage range.
+- `aggregation_objective` specifies if flexibility will be aggregated at the source bus or for a specific line (power flow).
+- `impose_vuf_constraints` controls if voltage unbalance constraints are imposed.
+- `vuf_threshold` sets the value for the VUF limit, if imposed.
+- `all_buses_vuf_constrained`, `exclude_buses_from_vuf_constraints` and `vuf_constrained_buses` allow to control the set of buses for which the VUF constraints will be imposed.
+- `impose_phase_coordination_constraints` imposes phase coordination constraints.
+- `K` controls the number of simulations (granularity) to estimate the P-Q areas.
+- `jld_name` and `figure_name` set the names of the output files.
+
 This code is not perfect and may be further improved. Nonetheless, as of August 2024, the code works reliably and reasonably fast for the two included case studies.
 
 The tool has been tested in Julia v1.10.4 (2024-06-04) with the following packages:

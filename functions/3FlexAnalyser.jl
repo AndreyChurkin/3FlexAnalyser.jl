@@ -1,14 +1,19 @@
 """
-This is the main code for calculating P-Q flexibility areas, plotting them, and imposing voltage unbalance and phase coordination constraints.
+This is the main code for calculating P-Q flexibility areas, plotting them,
+and imposing voltage unbalance and phase coordination constraints.
 The code reads data about the network and flexibility from /cases in the OpenDSS format (.dss).
 Yet, many parameters of the simulations have to be specified in this code to produce correct simulations.
-For example, it is necessary to select the case study (.dss file), limits of flexible units, phase (a, b, or c), 
-location of flexibility aggregation, number of simulations (points used to estimate P-Q flexibility areas,
+For example, it is necessary to select the case study (.dss file), P-Q limits of flexible units,
+phase (a, b, or c) for which the P-Q flexibility area will be maximised, 
+location of flexibility aggregation, number of simulations (points used to estimate P-Q flexibility areas),
 voltage unbalance constraints, phase coordination constraints, some plotting parameters, etc.
 
-This code is not perfect and may be further improved. There is still ongoing work and research as we prepare a manuscript for an IEEE Transactions journal.
+This code is not perfect and may be further improved.
+There is still ongoing work and research as we prepare a manuscript for an IEEE Transactions journal.
 Nonetheless, as of August 2024, the code works reliably and reasonably fast for the two included case studies.
 A more detailed description can be found on GitHub and in the manuscript [LINK!!!!!].
+
+Andrey Churkin https://andreychurkin.ru/
 
 """
 
@@ -19,7 +24,7 @@ cd(dirname(@__FILE__))
 
 include("../functions/calculate_VUF_a_posteriori.jl")
 include("../functions/build_VUF_constraint.jl")
-include("../functions/build_VUF_constraint_new_all_bus.jl")
+include("../functions/build_VUF_constraint_all_bus.jl")
 include("../functions/build_phase_coordination_constraints.jl")
 
 
@@ -32,7 +37,7 @@ eng = parse_file("../cases/5_bus_case_illustrative/LV_unbalanced_flex_unbalanced
 # eng = parse_file("../cases/221_bus_real_UK_case/Master_221_bus_UK.dss")
 
 
-# # Activate for adjusting transformer voltage (can be used for the UK case):
+# # Activate this part for adjusting transformer voltage (can be used for the UK case):
 # if haskey(eng, "transformer")
 #     transformer_keys = collect(keys(eng["transformer"]))
 #     for trans = 1:length(eng["transformer"])
@@ -41,25 +46,25 @@ eng = parse_file("../cases/5_bus_case_illustrative/LV_unbalanced_flex_unbalanced
 # end
 
 
-# # Some simulation settings used in PowerModelsDistribution.jl
+# # Some simulation settings used in PowerModelsDistribution.jl:
 eng["settings"]["sbase_default"] = 1 # if = 1, pm.model will be in kW
 # eng["settings"]["voltage_scale_factor"] = 1
 eng["settings"]["power_scale_factor"] = 1000
 
 
-# # Set P-Q limits for flexible generators (in kW and kVAr):
+# # Set the P-Q limits for flexible generators (in kW and kVAr):
 
 # # (5-bus case)
-# gen_lim_Pmax = 8
-# gen_lim_Pmin = -8
-# gen_lim_Qmax = 8
-# gen_lim_Qmin = -8
+gen_lim_Pmax = 8
+gen_lim_Pmin = -8
+gen_lim_Qmax = 8
+gen_lim_Qmin = -8
 
 # # (221-bus UK case)
-gen_lim_Pmax = 5.0
-gen_lim_Pmin = -5.0
-gen_lim_Qmax = 5.0
-gen_lim_Qmin = -5.0
+# gen_lim_Pmax = 5.0
+# gen_lim_Pmin = -5.0
+# gen_lim_Qmax = 5.0
+# gen_lim_Qmin = -5.0
 
 for gen_i = 1:length(eng["generator"])
     for phase = 1:length(eng["generator"]["g"*string(gen_i)]["pg_ub"])
@@ -83,17 +88,17 @@ v_lb = 0.94
 
 
 
-# # Select an objective (location/element) for flexibility aggregation:
+# # Select the objective (location or element) for flexibility aggregation:
 
-# aggregation_objective = "source" # <-- select to maximise flexibility for the source generator
+# aggregation_objective = "source" # <-- select to maximise flexibility at the source generator
 aggregation_objective = "line_flow" # <-- select to maximise flexibility for a specific power flow (line)
 """
 !! if selecting "line_flow", define the line's number (used in math model) !!
 !! If not sure about the exact line number (index), check "math" and "solution_opf_0" !!
 """
 # aggregation_line_number = 3 # for testing the 5-bus system (feeder line 1-2)
-# aggregation_line_number = 6 # for testing the 5-bus system (line from source bus)
-aggregation_line_number = 123 # for 221-bus UK case (line from source bus)
+aggregation_line_number = 6 # for testing the 5-bus system (line from source bus)
+# aggregation_line_number = 123 # for 221-bus UK case (line from source bus)
 
 
 # # Imosing voltage unbalance constraints:
@@ -116,10 +121,11 @@ global vuf_threshold = 0.005
 # global vuf_threshold = 0.001
 
 # # Specify for which buses VUF constraints should be imposed:
-# global all_buses_vuf_constrained = false # <-- if false, VUF constraint can be imposed only for a single bus
+# global all_buses_vuf_constrained = false # <-- if false, VUF constraint can be imposed only for a single bus (vuf_regulation_bus)
 global all_buses_vuf_constrained = true # <-- if true, VUF constraints can be imposed for every bus 
 """
-Note: Activating "all_buses_vuf_constrained = true" is necessary to impose constraints for multiple specific buses, e.g., using "vuf_constrained_buses" and "exclude_buses_from_vuf_constraints"
+Note: Activating "all_buses_vuf_constrained = true" is necessary to impose constraints for multiple specific buses,
+e.g., by using "vuf_constrained_buses" and "exclude_buses_from_vuf_constraints"
 """
 
 # # Set buses to exclude from VUF constraints (e.g., because of transformers' voltage levels)
@@ -133,7 +139,7 @@ global exclude_buses_from_vuf_constraints = [] # <-- [] means no exclusions
 # # A fixed set of buses to impose VUF constraints (only these buses will be considered for VUF limits):
 global vuf_constrained_buses = [] # <-- no specific buses defined
 
-# # (Used in the 221-bus UK case: buses in the most unbalanced part of the network)
+# # (Used in the paper for the 221-bus UK case: buses in the most unbalanced part of the network)
 # global vuf_constrained_buses = [
 # "bus_36049497_01"
 # "bus_36067332_01"
@@ -175,7 +181,7 @@ elseif multiple_source_check >= 2
     printstyled("WARNING: Multiple source generators found in the system! Please define a specific bus for flexibility aggregation."; color = :red)
 end
 
-# # Activate to make the source bus voltage not fixed to 1.0 pu:
+# # Activate this part to make the source bus voltage not fixed to 1.0 pu:
 # math["bus"][string(source_bus_i)]["vmin"] = [0.0, 0.0, 0.0]
 # math["bus"][string(source_bus_i)]["vmax"] = [Inf, Inf, Inf]
 # # delete!(math["bus"][string(source_bus_i)], "vm")
@@ -188,7 +194,6 @@ for branch_i = 1:length(math["branch"]) # find the bus next to the source bus
         global vuf_regulation_bus = math["branch"][string(branch_i)]["t_bus"]
     end
 end
-# vuf_regulation_bus = 4 # (test for the 5-bus system)
 
 if length(vuf_constrained_buses) >= 1 # if there is a set of buses for vuf constraints
     global exclude_buses_from_vuf_constraints = collect(1:length(math["bus"])) # exclude all buses first
@@ -203,7 +208,6 @@ if length(vuf_constrained_buses) >= 1 # if there is a set of buses for vuf const
 end
 
 pm = instantiate_mc_model(math, ACPUPowerModel, build_mc_opf)
-# pm = instantiate_model(math)
 
 pm.data["per_unit"] = false
 
@@ -228,8 +232,7 @@ if impose_vuf_constraints == true
     if all_buses_vuf_constrained == false
         vm_var_i = pm.var[:it][:pmd][:nw][0][:vm][vuf_regulation_bus]
         va_var_i = pm.var[:it][:pmd][:nw][0][:va][vuf_regulation_bus]
-        # vuf_constraint,vuf_constraint1,vuf_constraint2,pm_i = build_vuf_constraint(pm,vm_var_i,va_var_i,vuf_threshold)
-        build_vuf_constraint_new(pm, vm_var_i, va_var_i, vuf_threshold)
+        build_vuf_constraint(pm, vm_var_i, va_var_i, vuf_threshold)
     else
         N_bus = length(math["bus"])
         vm_var_allbus = pm.var[:it][:pmd][:nw][0][:vm]
@@ -242,23 +245,6 @@ if impose_phase_coordination_constraints == true
 end
 
 
-
-# # Tests of the opf solutions (not required):
-# solution_opf_1 = solve_mc_opf(eng, ACPUPowerModel, Ipopt.Optimizer)
-
-# solution_opf_2 = optimize_model!(pm, optimizer = solver)
-
-# objective_pg_ref_1 = pm.var[:it][:pmd][:nw][0][:pg][source_gen_i][1]
-# objective_pg_ref_2 = pm.var[:it][:pmd][:nw][0][:pg][source_gen_i][2]
-# objective_pg_ref_3 = pm.var[:it][:pmd][:nw][0][:pg][source_gen_i][3]
-
-# @objective(pm.model, Min, (objective_pg_ref_1 + objective_pg_ref_2 + objective_pg_ref_3))
-
-# solution_opf_3 = optimize_model!(pm, optimizer = solver)
-
-
-
-
 # # Solving the model with no flexibility (initial operating point):
 
 println()
@@ -267,7 +253,7 @@ eng_noflex = deepcopy(eng)
 delete!(eng_noflex, "generator")
 math_noflex = transform_data_model(eng_noflex)
 
-# # Make source bus voltage not fixed to 1.0 pu
+# # Activate this part to make source bus voltage not fixed to 1.0 pu:
 # math_noflex["bus"][string(source_bus_i)]["vmin"] = [0.0, 0.0, 0.0]
 # math_noflex["bus"][string(source_bus_i)]["vmax"] = [Inf, Inf, Inf]
 # # delete!(math_noflex["bus"][string(source_bus_i)], "vm")
@@ -292,12 +278,11 @@ for gen_i = 1:length(math_noflex["gen"]) # set equal phase outputs for 3-phase g
         end
     end
 end
-# # (Note: VUF constraint can be too restrictive for the initital OPF with no flexibility)
+# # (Note: VUF constraints can be too restrictive for the initial OPF with no flexibility)
 # if impose_vuf_constraints == true
 #     vm_var_noflex = pm_noflex.var[:it][:pmd][:nw][0][:vm][vuf_regulation_bus]
 #     va_var_noflex = pm_noflex.var[:it][:pmd][:nw][0][:va][vuf_regulation_bus]
-#     # vuf_constraint,vuf_constraint1,vuf_constraint2,pm_i = build_vuf_constraint(pm_i,vm_var_i,va_var_i,vuf_threshold)
-#     build_vuf_constraint_new(pm_noflex, vm_var_noflex, va_var_noflex, vuf_threshold)
+#     build_vuf_constraint(pm_noflex, vm_var_noflex, va_var_noflex, vuf_threshold)
 # end
 
 solution_opf_0 = optimize_model!(pm_noflex, optimizer = solver)
@@ -327,13 +312,13 @@ for bus_i = 1:length(math_noflex["bus"])
     global vuf_0_allbuses = vcat(vuf_0_allbuses,VUF_calculation(vm_var_0_i, va_var_0_i))
 end
 
-# # Use this to analyse the OPF solution (dictionary)
 if solution_opf_0["termination_status"] != MOI.LOCALLY_SOLVED
         println()
         printstyled("WARNING: Initial OPF with no flexible units did not converge!"; color = :red)
         println()
         printstyled("termination_status: ",solution_opf_0["termination_status"]; color = :red)
 end
+# # Use this part to analyse the OPF solution (dictionary):
 # solution_opf_0_bus_keys = collect(keys(solution_opf_0["solution"]["bus"]))
 # for key = 1:length(solution_opf_0["solution"]["bus"])
 #     # println("bus: ",solution_opf_0_bus_keys[key],"  ", solution_opf_0["solution"]["bus"][solution_opf_0_bus_keys[Int(key)]])
@@ -343,7 +328,12 @@ end
 
 ## Building the flexibility areas:
 
-# # Number of intervals:
+# # Select the number of intervals:
+"""
+Note that each interval requires computing OPF for 2 points (minimisation and maximisation).
+Plus, the intervals are computed for P and Q in separate loops.
+Therefore, if selecting K=20 intervals, the total number of simulations (points) will be 20*2*2=80.
+"""
 # K = 2
 # K = 3
 # K = 5
@@ -354,7 +344,7 @@ K = 10
 
 @time begin
 
-global flex_area_results = zeros(2, 2) # combinations of P and Q for ref. node
+global flex_area_results = zeros(2, 2) # combinations of P and Q for the reference (aggregation) node
 global uncertain_results = hcat([],[]) # questionable results to check (e.g., convergence issues)
 global term_status_records = [] # to track solver's convergence
 
@@ -389,7 +379,6 @@ term_status_records = vcat(term_status_records, solution_opf_i["termination_stat
 
 println()
 println("Solving the OPF model to find Qmax ...")
-# println()
 if aggregation_objective == "source"
     @objective(pm.model, Max, pm.var[:it][:pmd][:nw][0][:qg][source_gen_i][phase_i])
 elseif aggregation_objective == "line_flow"
@@ -413,9 +402,7 @@ term_status_records = vcat(term_status_records, solution_opf_i["termination_stat
 global it = 0 # count iterations
 for q_interval = range(Qmin, stop = Qmax, length = K)
     global it += 1
-    # println()
     println("Solving the OPF model for q_interval # ", it)
-    # println()
 
     local pm_i = instantiate_mc_model(math, ACPUPowerModel, build_mc_opf)
     pm_i.data["per_unit"] = false
@@ -449,8 +436,7 @@ for q_interval = range(Qmin, stop = Qmax, length = K)
         if all_buses_vuf_constrained == false
             local vm_var_i = pm_i.var[:it][:pmd][:nw][0][:vm][vuf_regulation_bus]
             local va_var_i = pm_i.var[:it][:pmd][:nw][0][:va][vuf_regulation_bus]
-            # vuf_constraint,vuf_constraint1,vuf_constraint2,pm_i = build_vuf_constraint(pm_i,vm_var_i,va_var_i,vuf_threshold)
-            build_vuf_constraint_new(pm_i, vm_var_i, va_var_i, vuf_threshold)
+            build_vuf_constraint(pm_i, vm_var_i, va_var_i, vuf_threshold)
         else
             local N_bus = length(math["bus"])
             local vm_var_allbus = pm_i.var[:it][:pmd][:nw][0][:vm]
@@ -518,7 +504,6 @@ end
 # # Loop #2: iterating between Pmax and Pmin operational limits
 println()
 println("Solving the OPF model to find Pmin ...")
-# println()
 if aggregation_objective == "source"
     @objective(pm.model, Min, pm.var[:it][:pmd][:nw][0][:pg][source_gen_i][phase_i])
 elseif aggregation_objective == "line_flow"
@@ -539,7 +524,6 @@ term_status_records = vcat(term_status_records, solution_opf_i["termination_stat
 
 println()
 println("Solving the OPF model to find Pmax ...")
-# println()
 if aggregation_objective == "source"
     @objective(pm.model, Max, pm.var[:it][:pmd][:nw][0][:pg][source_gen_i][phase_i])
 elseif aggregation_objective == "line_flow"
@@ -561,9 +545,7 @@ term_status_records = vcat(term_status_records, solution_opf_i["termination_stat
 global it = 0 # count iterations
 for p_interval = range(Pmin, stop = Pmax, length = K)
     global it += 1
-    # println()
     println("Solving the OPF model for p_interval # ", it)
-    # println()
 
     local pm_i = instantiate_mc_model(math, ACPUPowerModel, build_mc_opf)
     pm_i.data["per_unit"] = false
@@ -597,8 +579,7 @@ for p_interval = range(Pmin, stop = Pmax, length = K)
         if all_buses_vuf_constrained == false
             local vm_var_i = pm_i.var[:it][:pmd][:nw][0][:vm][vuf_regulation_bus]
             local va_var_i = pm_i.var[:it][:pmd][:nw][0][:va][vuf_regulation_bus]
-            # vuf_constraint,vuf_constraint1,vuf_constraint2,pm_i = build_vuf_constraint(pm_i,vm_var_i,va_var_i,vuf_threshold)
-            build_vuf_constraint_new(pm_i, vm_var_i, va_var_i, vuf_threshold)
+            build_vuf_constraint(pm_i, vm_var_i, va_var_i, vuf_threshold)
         else
             local N_bus = length(math["bus"])
             local vm_var_allbus = pm_i.var[:it][:pmd][:nw][0][:vm]
@@ -674,7 +655,6 @@ infeasible_solutions = 0
 for check = 1:size(term_status_records)[1]
         if term_status_records[check] != MOI.LOCALLY_SOLVED
             global infeasible_solutions += 1
-            # global uncertain_results = vcat(uncertain_results,flex_area_results[check,:]')
         end
 end
 if infeasible_solutions == 0
@@ -689,7 +669,8 @@ end
 
 end # @time
 
-# # # Save the flexibility results to JLD:
+
+# # Save the flexibility estimation results to JLD:
 using JLD
 # jld_name = "221bus_UK_phaseA_no_constraints.jld"
 # jld_name = "221bus_UK_phaseA_nocoordination_noVUF.jld"
@@ -702,7 +683,6 @@ using JLD
 # jld_name = "221bus_UK_phaseC_nocoordination_VUF0.005.jld"
 jld_name = "test_1.jld"
 
-
 save(jld_name
      , "flex_area_results",flex_area_results
      , "flex_area_results_0",flex_area_results_0
@@ -710,13 +690,15 @@ save(jld_name
      , "term_status_records",term_status_records
 )
 
-## plotting the flexibility area:
+
+# # plotting the P-Q flexibility area:
+
 using Plots, Plots.PlotMeasures
 using LazySets, Polyhedra
 using ConcaveHull
 
-# reverse_results = false
-reverse_results = true # use "true" if the power flow results are negative (to plot them as positive)
+reverse_results = false
+# reverse_results = true # use "true" if the power flow results are negative due to the branch's indexing (to plot them as positive)
 
 if reverse_results == true
     global plot_flex_area_results = -1*flex_area_results
@@ -730,13 +712,14 @@ end
 
 points = N -> [plot_flex_area_results[i,:] for i in 1:N]
 v = points(size(plot_flex_area_results)[1])
-# hull = convex_hull(v)
 
+# # Plotting parameter used to zoom out from the P-Q flexibility area:
 # zoom_out = 1.0 # kVA
 zoom_out = 2.0 # kVA
 
 N_flex_gen = length(eng["generator"]) # number of flexible generators
 
+# # Adjust font size in the figures:
 # font_size = 30
 font_size = 26
 
@@ -749,32 +732,23 @@ elseif phase_i == 3
 end
 
 plt = plot(
-            # VPolygon(hull),
             alpha=0.25,
             lw = 3,
-            # linecolor =
-            # color=palette(:tab10)[1],
-            # color=palette(:tab10)[2],
-            # color=palette(:tab10)[3],
-            # color = boundary_color,
             linealpha = 0.7,
             fontfamily = "Courier",
-            # size = (2000,2000),
             size = (1200,1200),
-            # xlim=(minimum(plot_flex_area_results[:,1])-zoom_out, maximum(plot_flex_area_results[:,1])+zoom_out),
-            # ylim=(minimum(plot_flex_area_results[:,2])-zoom_out, maximum(plot_flex_area_results[:,2])+zoom_out),
 
-            # # xlim = (10,31), # 5-bus case
-            # # ylim = (-0.5, 21), # 5-bus case
+            xlim=(minimum(plot_flex_area_results[:,1])-zoom_out, maximum(plot_flex_area_results[:,1])+zoom_out), # <-- adjustable zooming
+            ylim=(minimum(plot_flex_area_results[:,2])-zoom_out, maximum(plot_flex_area_results[:,2])+zoom_out),
 
-            # xlim = (8,33), # 5-bus case
-            # ylim = (-2.5, 23), # 5-bus case
+            # xlim = (8,33), # <-- for the 5-bus case
+            # ylim = (-2.5, 23),
 
             # xlim = (plot_flex_area_results_0[phase_i,1] - gen_lim_Pmax*N_flex_gen, plot_flex_area_results_0[phase_i,1] - gen_lim_Pmin*N_flex_gen),
             # ylim = (plot_flex_area_results_0[phase_i,2] - gen_lim_Qmax*N_flex_gen, plot_flex_area_results_0[phase_i,2] - gen_lim_Qmin*N_flex_gen),
 
-            xlim = (plot_flex_area_results_0[phase_i,1] - 30, plot_flex_area_results_0[phase_i,1] + 30), # 221-bus UK case
-            ylim = (plot_flex_area_results_0[phase_i,2] - 30, plot_flex_area_results_0[phase_i,2] + 30),
+            # xlim = (plot_flex_area_results_0[phase_i,1] - 30, plot_flex_area_results_0[phase_i,1] + 30), # <-- for the 221-bus UK case
+            # ylim = (plot_flex_area_results_0[phase_i,2] - 30, plot_flex_area_results_0[phase_i,2] + 30),
 
             xlabel = "P, kW", ylabel = "Q, kVAr",
             xtickfontsize = font_size, ytickfontsize = font_size,
@@ -789,14 +763,12 @@ c_hull = concave_hull(v,neighbours) # get a concave hull - to compute its area l
 plot!(plt, c_hull, color = boundary_color)
 
 scatter!(plt, plot_flex_area_results[:,1], plot_flex_area_results[:,2],
-            # markersize = 8,
             markersize = 5,
             # markerstrokewidth = 1,
             markercolor = :black
 )
 
 scatter!(plt, plot_uncertain_results[:,1], plot_uncertain_results[:,2],
-            # markersize = 12,
             markersize = 8,
             # markerstrokewidth = 1,
             markercolor = :red
@@ -804,7 +776,6 @@ scatter!(plt, plot_uncertain_results[:,1], plot_uncertain_results[:,2],
 
 scatter!(plt, [plot_flex_area_results_0[phase_i,1]], [plot_flex_area_results_0[phase_i,2]],
             markersize = 20,
-            # markersize = 25,
             markershape = :cross,
             markercolor = :black
 )
@@ -815,6 +786,9 @@ println()
 println("c_hull_area (kVA^2):")
 c_hull_area = ConcaveHull.area(c_hull) # <-- to avoid conflicting functions
 println(c_hull_area)
+
+
+# # Save the figure:
 
 # figure_name = "5bus_test2"
 # figure_name = "5bus_bal_flex_bal"
@@ -841,9 +815,6 @@ println(c_hull_area)
 # figure_name = "221bus_UK_phaseC_nocoordination_noVUF"
 # figure_name = "221bus_UK_phaseC_nocoordination_VUF0.005"
 figure_name = "test_1"
-
-
-
 
 savefig(figure_name*".svg")
 savefig(figure_name*".png")

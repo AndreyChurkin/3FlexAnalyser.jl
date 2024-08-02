@@ -1,4 +1,9 @@
-function build_vuf_constraint_new(pm_i, vm_var, va_var, vuf_threshold)
+"""
+This function imposes VUF constraints for a single bus.
+The constraints are explicitly included in the optimisation model.
+"""
+
+function build_vuf_constraint(pm_i, vm_var, va_var, vuf_threshold)
 
     """
     Definition: voltage unbalance is defined as the ratio 

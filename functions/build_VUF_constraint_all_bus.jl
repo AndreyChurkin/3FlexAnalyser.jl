@@ -1,3 +1,8 @@
+"""
+This function imposes VUF constraints for multiple buses.
+The constraints are explicitly included in the optimisation model.
+"""
+
 function build_vuf_constraint_allbus(pm_i, vm_var, va_var, vuf_threshold, N_bus)
 
     """

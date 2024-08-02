@@ -683,7 +683,7 @@ using JLD
 # jld_name = "221bus_UK_phaseC_nocoordination_VUF0.005.jld"
 jld_name = "test_1.jld"
 
-save(jld_name
+save("../results/"*jld_name
      , "flex_area_results",flex_area_results
      , "flex_area_results_0",flex_area_results_0
      , "uncertain_results",uncertain_results
@@ -816,6 +816,6 @@ println(c_hull_area)
 # figure_name = "221bus_UK_phaseC_nocoordination_VUF0.005"
 figure_name = "test_1"
 
-savefig(figure_name*".svg")
-savefig(figure_name*".png")
-savefig(figure_name*".pdf")
+savefig("../results/"*figure_name*".svg")
+savefig("../results/"*figure_name*".png")
+savefig("../results/"*figure_name*".pdf")

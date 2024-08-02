@@ -26,15 +26,25 @@ For example, in [2], various combinations of voltage unbalance and phase coordin
 
 There are two cases included and tested in this tool, as shown below.
 
-Illustrative 5-bus System:
+Illustrative 5-bus system with 3 flexible units:
 
 <img src="5_bus_scheme.png" alt="5_bus_scheme" width="500">
 
-Real 221-bus low voltage Distribution Network in the UK:
+Real 221-bus low voltage distribution network in the UK with 12 flexible units:
 
 <img src="221_bus_UK_graph.png" alt="221_bus_UK_graph" width="500">
 
+Extensive simulations performed for these cases demonstrate that flexibility services in distribution networks can be significantly constrained due to inherent load unbalances, voltage unbalance limits, and lack of coordination between DER connected to different phases.
+Specifically, the aggregated P-Q flexibility areas reduce when phase coordination constraints and voltage limits are imposed.
+It is found that the worst conditions for providing flexibility services include the lack of coordination between flexible units connected to different phases and tight voltage unbalance constraints.
+In such cases, flexible units cannot effectively manage voltage unbalance across different phases and locations, which results in the infeasibility of services provision.
+The figures below show the impact of phase coordination and voltage unbalance limits for (a) phase A, (b) phase B, and (c) phase C.
+
+Example of the results and analysis for the illustrative 5-bus system:
+
 <img src="results_from_manuscript_5_bus.png" alt="results_from_manuscript_5_bus" width="1000">
+
+Example of the results and analysis for the 221-bus distribution network in the UK:
 
 <img src="results_from_manuscript_221_bus_UK.png" alt="results_from_manuscript_221_bus_UK" width="1000">
 

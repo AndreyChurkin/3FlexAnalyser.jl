@@ -5,9 +5,16 @@
 
 <img src="framework_flowchart.png" alt="Framework" width="1000">
 
+<img src="PQ_area_example.png.png" alt="Framework" width="500">
+
 <img src="5_bus_scheme.png" alt="Framework" width="500">
 
 <img src="221_bus_UK_graph.png" alt="Framework" width="500">
+
+<img src="results_from_manuscript_5_bus.png" alt="Framework" width="1000">
+
+<img src="results_from_manuscript_221_bus_UK.png" alt="Framework" width="1000">
+
 
 
 The tool has been tested in Julia v1.10.4 (2024-06-04) with the following packages:
@@ -23,3 +30,6 @@ The tool has been tested in Julia v1.10.4 (2024-06-04) with the following packag
 - PowerModelsDistribution v0.15.2
 - StatsPlots v0.15.7
 - Suppressor v0.2.7
+
+### REFERENCES:
+[1] To be updated....

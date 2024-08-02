@@ -77,8 +77,8 @@ end
 
 
 # # Select phase to optimise (P-Q flexibility area will be maximised for this phase):
-# phase_i = 1
-phase_i = 2
+phase_i = 1
+# phase_i = 2
 # phase_i = 3
 
 
@@ -102,27 +102,27 @@ aggregation_line_number = 6 # for testing the 5-bus system (line from source bus
 
 
 # # Imosing voltage unbalance constraints:
-# global impose_vuf_constraints = false # <-- no additional voltage unbalance constraints (P-Q flexibility areas should not be reduced)
-global impose_vuf_constraints = true # <-- impose VUF limits (P-Q flexibility areas may be reduced)
+global impose_vuf_constraints = false # <-- no additional voltage unbalance constraints (P-Q flexibility areas should not be reduced)
+# global impose_vuf_constraints = true # <-- impose VUF limits (P-Q flexibility areas may be reduced)
 
 # # Set the VUF limit for simulations (if imposing voltage unbalance constraints):
 # global vuf_threshold = 0.02 # note that 2% is 0.02
 # global vuf_threshold = 0.015
 # global vuf_threshold = 0.013
-# global vuf_threshold = 0.01
+global vuf_threshold = 0.01
 # global vuf_threshold = 0.009
 # global vuf_threshold = 0.008
 # global vuf_threshold = 0.007
 # global vuf_threshold = 0.006
-global vuf_threshold = 0.005
+# global vuf_threshold = 0.005
 # global vuf_threshold = 0.004
 # global vuf_threshold = 0.003
 # global vuf_threshold = 0.002
 # global vuf_threshold = 0.001
 
 # # Specify for which buses VUF constraints should be imposed:
-# global all_buses_vuf_constrained = false # <-- if false, VUF constraint can be imposed only for a single bus (vuf_regulation_bus)
-global all_buses_vuf_constrained = true # <-- if true, VUF constraints can be imposed for every bus 
+global all_buses_vuf_constrained = false # <-- if false, VUF constraint can be imposed only for a single bus (vuf_regulation_bus)
+# global all_buses_vuf_constrained = true # <-- if true, VUF constraints can be imposed for every bus 
 """
 Note: Activating "all_buses_vuf_constrained = true" is necessary to impose constraints for multiple specific buses,
 e.g., by using "vuf_constrained_buses" and "exclude_buses_from_vuf_constraints"
@@ -152,8 +152,8 @@ global vuf_constrained_buses = [] # <-- no specific buses defined
 
 
 # # Introduce phase coordination constraints:
-# global impose_phase_coordination_constraints = false # <-- If false, no additional constraints are imposed (P-Q flexibility areas will not be reduced)
-global impose_phase_coordination_constraints = true # <-- If true, phase coordination constraints are imposed (P-Q flexibility areas will be reduced significantly)
+global impose_phase_coordination_constraints = false # <-- If false, no additional constraints are imposed (P-Q flexibility areas will not be reduced)
+# global impose_phase_coordination_constraints = true # <-- If true, phase coordination constraints are imposed (P-Q flexibility areas will be reduced significantly)
 
 
 # # Now, the mathematical model is formulated below:

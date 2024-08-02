@@ -5,15 +5,15 @@
 
 <img src="framework_flowchart.png" alt="Framework" width="1000">
 
-<img src="PQ_area_example.png.png" alt="Framework" width="500">
+<img src="PQ_area_example.png" alt="PQ_area_example" width="500">
 
-<img src="5_bus_scheme.png" alt="Framework" width="500">
+<img src="5_bus_scheme.png" alt="5_bus_scheme" width="500">
 
-<img src="221_bus_UK_graph.png" alt="Framework" width="500">
+<img src="221_bus_UK_graph.png" alt="221_bus_UK_graph" width="500">
 
-<img src="results_from_manuscript_5_bus.png" alt="Framework" width="1000">
+<img src="results_from_manuscript_5_bus.png" alt="results_from_manuscript_5_bus" width="1000">
 
-<img src="results_from_manuscript_221_bus_UK.png" alt="Framework" width="1000">
+<img src="results_from_manuscript_221_bus_UK.png" alt="results_from_manuscript_221_bus_UK" width="1000">
 
 
 

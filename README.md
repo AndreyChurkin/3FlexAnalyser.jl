@@ -2,9 +2,9 @@
 **Julia tool for modelling and analysing flexibility in low voltage distribution networks, with nonlinear three-phase power flow and explicit constraints on voltage unbalance and phase coordination**
 
 The tool enables quantifying the impacts of phase unbalance, voltage unbalance and distributed energy resources (DER) coordination on flexibility services in low voltage distribution networks.
-The main idea of aggregated flexibility modelling in the unbalanced setting was originally formulated by Wangwei Kong (The University of Manchester →➔ National Grid). The tool was further developed, tested and published by Andrey Churkin (The University of Manchester --> Imperial College London).
+The main idea of aggregated flexibility modelling in the unbalanced setting was originally formulated by Wangwei Kong (The University of Manchester ➔ National Grid). The tool was further developed, tested and published by Andrey Churkin (The University of Manchester ➔ Imperial College London).
 
-... don't forget to mention PowerModelsDistribution.jl ...
+At the core of **3FlexAnalyser.jl** lies a nonlinear three-phase optimal power flow (OPF) model adapted from **PowerModelsDistribution.jl**[1].
 
 <img src="framework_flowchart.png" alt="Framework" width="1000">
 
@@ -35,4 +35,6 @@ The tool has been tested in Julia v1.10.4 (2024-06-04) with the following packag
 - Suppressor v0.2.7
 
 ### REFERENCES:
-[1] To be updated....
+[1] Fobes, David M., Sander Claeys, Frederik Geth, and Carleton Coffrin, "PowerModelsDistribution.jl: An open-source framework for exploring distribution power flow formulations," Electric Power Systems Research, vol. 189, 2020.
+
+[2] To be updated....

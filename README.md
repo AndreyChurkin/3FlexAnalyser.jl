@@ -88,4 +88,4 @@ The tool has been tested in Julia v1.10.4 (2024-06-04) with the following packag
 ### REFERENCES:
 [1] Fobes, David M., Sander Claeys, Frederik Geth, and Carleton Coffrin, "PowerModelsDistribution.jl: An open-source framework for exploring distribution power flow formulations," Electric Power Systems Research, vol. 189, 2020.
 
-[2] To be updated.......
+[2] Andrey Churkin, Wangwei Kong, Pierluigi Mancarella, and Eduardo A. Martínez Ceseña, "Quantifying Phase Unbalance and Coordination Impacts on Distribution Network Flexibility," https://arxiv.org/abs/2408.06516, 2024

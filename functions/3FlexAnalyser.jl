@@ -11,7 +11,7 @@ voltage unbalance constraints, phase coordination constraints, some plotting par
 This code is not perfect and may be further improved.
 There is still ongoing work and research as we prepare a manuscript for an IEEE Transactions journal.
 Nonetheless, as of August 2024, the code works reliably and reasonably fast for the two included case studies.
-A more detailed description can be found on GitHub and in the manuscript [LINK!!!!!].
+A more detailed description can be found on GitHub and in the manuscript https://arxiv.org/abs/2408.06516
 
 Andrey Churkin https://andreychurkin.ru/
 

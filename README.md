@@ -11,12 +11,12 @@ The inputs include network data, available flexible resources, load and flexibil
 Then, the limits of flexibility services from DER are estimated using the concept of P-Q flexibility areas. Next, voltage unbalance and phase coordination constraints are imposed and the P-Q flexibility areas are estimated again.
 Finally, the aggregated flexibility is compared for cases with and without these constraints and the impacts of phase unbalance and DER coordination are quantified.
 <p align="center">
-<img src="framework_flowchart.png" alt="Framework" width="600">
+<img src="framework_flowchart.png" alt="Framework" width="450">
 </p>
 
 The following figure shows a step-by-step illustration of the interval-based OPF algorithm used to construct the aggregated P-Q flexibility area for a single phase: (a) the initial operating point with no flexibility is calculated; (b) the bounds of the area are obtained by calculating Q minimum and maximum, points 1 and 2, and P minimum and maximum, points 3 and 4; (c) these limits are discretised into intervals – 10 Q intervals in this example; (d) the first Q interval is considered by constraining the Q component of the aggregated flexibility, the corresponding P limits (boundary points 5 and 6) are calculated; (e) after evaluating all intervals, the final area is estimated as the hull of all boundary points. The algorithm is executed separately for each phase.
 <p align="center">
-<img src="iterative_PQ_algorithm.png" alt="Framework" width="600">
+<img src="iterative_PQ_algorithm.png" alt="Framework" width="1000">
 </p>
 
 

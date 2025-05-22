@@ -337,9 +337,9 @@ Therefore, if selecting K=20 intervals, the total number of simulations (points)
 # K = 2
 # K = 3
 # K = 5
-K = 10
+# K = 10
 # K = 15
-# K = 20 # used for the figures in the paper
+K = 20 # used for the figures in the paper
 # K = 30
 
 @time begin

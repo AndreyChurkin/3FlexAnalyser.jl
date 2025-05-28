@@ -20,9 +20,9 @@ include("../functions/calculate_VUF_a_posteriori.jl")
 
 # eng = parse_file("../cases/5_bus_case_illustrative/LV_balanced_flex_balanced.dss")
 # eng = parse_file("../cases/5_bus_case_illustrative/LV_unbalanced_flex_balanced.dss")
-eng = parse_file("../cases/5_bus_case_illustrative/LV_unbalanced_flex_unbalanced.dss")
+# eng = parse_file("../cases/5_bus_case_illustrative/LV_unbalanced_flex_unbalanced.dss")
 
-# eng = parse_file("../cases/221_bus_real_UK_case/Master_221_bus_UK.dss")
+eng = parse_file("../cases/221_bus_real_UK_case/Master_221_bus_UK.dss")
 
 
 eng["settings"]["sbase_default"] = 1 # if = 1, pm.model will be in kW
@@ -196,9 +196,9 @@ println()
 
 
 # # Saving topology files in CSV - can be used in Gephi software
-CSV.write("../results/Arcs.csv", DataFrame(get_arcs,:auto))
-CSV.write("../results/Nodes.csv", DataFrame(get_nodes,:auto))
-CSV.write("../results/vuf_0_allbuses.csv", DataFrame(Column1 = vuf_0_allbuses))
+# CSV.write("../results/Arcs.csv", DataFrame(get_arcs,:auto))
+# CSV.write("../results/Nodes.csv", DataFrame(get_nodes,:auto))
+# CSV.write("../results/vuf_0_allbuses.csv", DataFrame(Column1 = vuf_0_allbuses))
 
 
 # Let's plot the distribution of voltages and voltage unbalances:
@@ -234,9 +234,9 @@ plot!(plt_vuf,
 )
 
 display(plt_vuf)
-savefig("../results/plt_vuf.png")
-savefig("../results/plt_vuf.pdf")
-savefig("../results/plt_vuf.svg")
+# savefig("../results/plt_vuf.png")
+# savefig("../results/plt_vuf.pdf")
+# savefig("../results/plt_vuf.svg")
 
 
 plt_vm_per_phase = plot(
@@ -298,6 +298,6 @@ plot!(plt_vm_per_phase,
 )
 
 display(plt_vm_per_phase)
-savefig("../results/plt_vm_per_phase.png")
-savefig("../results/plt_vm_per_phase.pdf")
-savefig("../results/plt_vm_per_phase.svg")
+# savefig("../results/plt_vm_per_phase.png")
+# savefig("../results/plt_vm_per_phase.pdf")
+# savefig("../results/plt_vm_per_phase.svg")

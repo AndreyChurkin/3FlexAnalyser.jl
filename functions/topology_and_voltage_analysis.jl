@@ -70,7 +70,7 @@ if solution_opf_0["termination_status"] != MOI.LOCALLY_SOLVED
     printstyled("termination_status: ",solution_opf_0["termination_status"]; color = :red)
 else
     println()
-    printstyled("Solver status OK: Ipopt converged this OPF!"; color = :green)
+    printstyled("Solver status OK: Ipopt converged for this OPF!"; color = :green)
     println()
 end
 

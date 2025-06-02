@@ -63,10 +63,10 @@ bus_lookup_keys = collect(keys(math["bus_lookup"]))
 
 
 # Select number of scenarios to generaste:
-N_scenarios = 100
+N_scenarios = 1000
 
 # Set the maximum load variation for scenarios (0.2 means ±20%):
-load_variation = 0.2
+load_variation = 0.5
 
 
 # # Start generating scenarios with random loads and flexible power outputs:
@@ -78,7 +78,7 @@ for sc = 1:N_scenarios
     global loads_copy = deepcopy(math["load"])
     global generators_copy = deepcopy(math["gen"])
 
-    for load_i = 1:length(loads_copy)[1]
+    for load_i = 1:length(loads_copy)
         # println("math[load][",load_i,"][pd] = ",math["load"][string(load_i)]["pd"])
         # println("math[load][",load_i,"][qd] = ",math["load"][string(load_i)]["qd"])
         # println()
@@ -86,9 +86,10 @@ for sc = 1:N_scenarios
         n_phases = length(loads_copy[string(load_i)]["connections"])
         load_multipliers = rand(Uniform(1-load_variation, 1+load_variation), n_phases)
 
+        # load_multipliers = ones(n_phases) # <-- for testing purposes
+
         loads_copy[string(load_i)]["pd"] .=  loads_copy[string(load_i)]["pd"] .* load_multipliers
         loads_copy[string(load_i)]["qd"] .=  loads_copy[string(load_i)]["qd"] .* load_multipliers
-
 
     end
 
@@ -111,8 +112,6 @@ for sc = 1:N_scenarios
             generators_copy[string(gen_i)]["qmin"] = gen_Q_rand .- gen_ε
             generators_copy[string(gen_i)]["qmax"] = gen_Q_rand .+ gen_ε
 
-
-
         end
     end
 
@@ -124,6 +123,6 @@ for sc = 1:N_scenarios
 end
 
 # # Saving the generated load and flexibility scenarios:
-results_dir = joinpath(@__DIR__, "..", "results")
-save_path = joinpath(results_dir, "load_and_flexibility_scenarios_221_bus_v1.jld2")
-@save save_path math_generated_scenarios=math_all_scenarios
+# results_dir = joinpath(@__DIR__, "..", "results")
+# save_path = joinpath(results_dir, "load_and_flexibility_1000_scenarios_221_bus.jld2")
+# @save save_path math_generated_scenarios=math_all_scenarios

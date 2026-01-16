@@ -60,6 +60,17 @@ Example of the results and analysis for the 221-bus distribution network in the 
 <img src="results_from_manuscript_221_bus_UK.png" alt="results_from_manuscript_221_bus_UK" width="1000">
 </p>
 
+The tool also allows to perform a stochastic analysis of loads and flexibility provision. Specifically, the aim is to estimate how often VUF limit violations can occur when uncoordinated flexible resources operate in unbalanced networks. Below is an example of 1,000 load scenarios randomly generated for the 221-bus LV distribution network. In each scenario, P-Q power demand values were varied independently across all buses by ±50% (sampled from a uniform distribution) to reflect temporal and spatial variability.
+<p align="center">
+<img src="distribution_of_loads_across_phases_and_scenarios_for_readme.PNG" alt="distribution_of_loads_across_phases_and_scenarios_for_readme" width="500">
+</p>
+
+For each generated scenario, the OPF problem can be solved, and the maximum voltage unbalance across all buses can be calculated. The results below show the VUF values sorted in descending order, thus forming VUF duration curves across the scenarios. Note that without flexibility, asymmetric loads do not cause significant voltage unbalances – maximum VUF values are well below 1.3% for all scenarios. However, when introducing uncoordinated flexible resources, a significant share of scenarios (over 15%) exhibit violations of the voltage unbalance limit. These results highlight the importance of phase-aware control strategies for flexible resources: without coordination, flexibility provision can inadvertently introduce harmful voltage unbalances.
+<p align="center">
+<img src="VUF_visualisation_example_for_readme.png" alt="VUF_visualisation_example_for_readme" width="500">
+</p>
+
+
 ### RUNNING THE TOOL:
 
 To run the tool, execute `functions/3FlexAnalyser.jl`.

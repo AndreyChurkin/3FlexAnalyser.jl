@@ -121,8 +121,8 @@ global vuf_threshold = 0.01
 # global vuf_threshold = 0.001
 
 # # Specify for which buses VUF constraints should be imposed:
-global all_buses_vuf_constrained = false # <-- if false, VUF constraint can be imposed only for a single bus (vuf_regulation_bus)
-# global all_buses_vuf_constrained = true # <-- if true, VUF constraints can be imposed for every bus 
+# global all_buses_vuf_constrained = false # <-- if false, VUF constraint can be imposed only for a single bus (vuf_regulation_bus)
+global all_buses_vuf_constrained = true # <-- if true, VUF constraints can be imposed for every bus 
 """
 Note: Activating "all_buses_vuf_constrained = true" is necessary to impose constraints for multiple specific buses,
 e.g., by using "vuf_constrained_buses" and "exclude_buses_from_vuf_constraints"
@@ -339,7 +339,7 @@ Therefore, if selecting K=20 intervals, the total number of simulations (points)
 # K = 5
 # K = 10
 # K = 15
-K = 20 # used for the figures in the paper
+K = 20 # <-- used for the figures in the paper
 # K = 30
 
 @time begin
@@ -744,11 +744,12 @@ plt = plot(
             # xlim = (8,33), # <-- for the 5-bus case
             # ylim = (-2.5, 23),
 
+            # xlim = (plot_flex_area_results_0[phase_i,1] - 30, plot_flex_area_results_0[phase_i,1] + 30), # <-- for the 221-bus UK case
+            # ylim = (plot_flex_area_results_0[phase_i,2] - 30, plot_flex_area_results_0[phase_i,2] + 30),
+
             # xlim = (plot_flex_area_results_0[phase_i,1] - gen_lim_Pmax*N_flex_gen, plot_flex_area_results_0[phase_i,1] - gen_lim_Pmin*N_flex_gen),
             # ylim = (plot_flex_area_results_0[phase_i,2] - gen_lim_Qmax*N_flex_gen, plot_flex_area_results_0[phase_i,2] - gen_lim_Qmin*N_flex_gen),
 
-            # xlim = (plot_flex_area_results_0[phase_i,1] - 30, plot_flex_area_results_0[phase_i,1] + 30), # <-- for the 221-bus UK case
-            # ylim = (plot_flex_area_results_0[phase_i,2] - 30, plot_flex_area_results_0[phase_i,2] + 30),
 
             xlabel = "P, kW", ylabel = "Q, kVAr",
             xtickfontsize = font_size, ytickfontsize = font_size,
@@ -782,10 +783,15 @@ scatter!(plt, [plot_flex_area_results_0[phase_i,1]], [plot_flex_area_results_0[p
 
 display(plt)
 
+
+
 println()
-println("c_hull_area (kVA^2):")
+println("c_hull_area for Phase ",phase_i," (kVA^2):")
 c_hull_area = ConcaveHull.area(c_hull) # <-- to avoid conflicting functions
-println(c_hull_area)
+println(round(c_hull_area, digits = 2))
+
+# println("c_hull_area/reference_valuse*100% = ", round(c_hull_area/1721.72*100, digits=2),"%")
+
 
 
 # # Save the figure:
@@ -807,13 +813,14 @@ println(c_hull_area)
 
 # figure_name = "221bus_UK_phaseA_no_constraints"
 # figure_name = "221bus_UK_phaseA_nocoordination_noVUF"
-# figure_name = "221bus_UK_phaseA_nocoordination_VUF0.005"
+# figure_name = "221bus_UK_phaseA_nocoordination_VUF0.01"
 # figure_name = "221bus_UK_phaseB_no_constraints"
 # figure_name = "221bus_UK_phaseB_nocoordination_noVUF"
-# figure_name = "221bus_UK_phaseB_nocoordination_VUF0.005"
+# figure_name = "221bus_UK_phaseB_nocoordination_VUF0.01"
 # figure_name = "221bus_UK_phaseC_no_constraints"
 # figure_name = "221bus_UK_phaseC_nocoordination_noVUF"
-# figure_name = "221bus_UK_phaseC_nocoordination_VUF0.005"
+# figure_name = "221bus_UK_phaseC_nocoordination_VUF0.01"
+
 figure_name = "test_1"
 
 savefig("../results/"*figure_name*".svg")

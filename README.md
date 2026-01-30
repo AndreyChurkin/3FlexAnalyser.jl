@@ -48,7 +48,7 @@ Extensive simulations performed for these cases demonstrate that flexibility ser
 Specifically, the aggregated P-Q flexibility areas reduce when phase coordination constraints and voltage limits are imposed.
 It is found that the worst conditions for providing flexibility services include the lack of coordination between flexible units connected to different phases and tight voltage unbalance constraints.
 In such cases, flexible units cannot effectively manage voltage unbalance across different phases and locations, which results in the infeasibility of services provision.
-The figures below show the impact of phase coordination and voltage unbalance limits for (a) phase A, (b) phase B, and (c) phase C.
+The figures below show the impact of phase coordination and voltage unbalance limits for each phase.
 
 Example of the results and analysis for the illustrative 5-bus system:
 <p align="center">

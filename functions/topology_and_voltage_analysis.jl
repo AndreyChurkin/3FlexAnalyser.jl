@@ -195,6 +195,34 @@ println("The highest VUF bus index: ",findfirst(x -> x == maximum(vuf_0_allbuses
 println()
 
 
+# # Analyse power losses of the system:
+function total_branch_losses(opf_result) # Computing losses from branch flows
+    br = opf_result["solution"]["branch"]
+    p_flow_loss = 0.0
+    q_flow_loss = 0.0
+    for (_, b) in br # pf, pt, qf, qt are vectors of length 3
+            p_flow_loss += abs(sum(b["pf"] .+ b["pt"]))
+            q_flow_loss += abs(sum(b["qf"] .+ b["qt"]))
+    end
+    return p_flow_loss, q_flow_loss
+end
+
+p_flow_loss, q_flow_loss = total_branch_losses(solution_opf_0)
+println()
+println("Total active loss = $p_flow_loss kW, ", round(p_flow_loss/total_load_kW*100, digits=2)," %")
+println("Total reactive loss = $q_flow_loss kVAr, ", round(q_flow_loss/total_load_kVAr*100, digits=2)," %")
+
+total_gen_kW = sum(solution_opf_0["solution"]["gen"]["1"]["pg"])
+total_gen_kVAr = sum(solution_opf_0["solution"]["gen"]["1"]["qg"])
+println()
+println("Total active power generation of the system = ",total_gen_kW, " kW")
+println("Total reactive power generation of the system = ",total_gen_kVAr, " kVAr")
+println()
+println("Double-checking the power losses using total generation and loads...") # !! May be incorrect - need to investigate later !!
+println("Total active loss = ",total_gen_kW-total_load_kW,", ", round((total_gen_kW-total_load_kW)/total_gen_kW*100, digits=2)," %")
+println("Total reactive loss = ",total_gen_kVAr-total_load_kVAr,", ", round((total_gen_kVAr-total_load_kVAr)/total_gen_kVAr*100, digits=2)," %")
+
+
 # # Saving topology files in CSV - can be used in Gephi software
 # CSV.write("../results/Arcs.csv", DataFrame(get_arcs,:auto))
 # CSV.write("../results/Nodes.csv", DataFrame(get_nodes,:auto))

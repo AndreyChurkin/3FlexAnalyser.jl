@@ -20,6 +20,8 @@ Andrey Churkin https://andreychurkin.ru/
 using PowerModelsDistribution
 using JuMP, Ipopt
 
+using Statistics
+
 cd(dirname(@__FILE__))
 
 include("../functions/calculate_VUF_a_posteriori.jl")
@@ -55,16 +57,16 @@ eng["settings"]["power_scale_factor"] = 1000
 # # Set the P-Q limits for flexible generators (in kW and kVAr):
 
 # # (5-bus case)
-gen_lim_Pmax = 8
-gen_lim_Pmin = -8
-gen_lim_Qmax = 8
-gen_lim_Qmin = -8
+# gen_lim_Pmax = 8
+# gen_lim_Pmin = -8
+# gen_lim_Qmax = 8
+# gen_lim_Qmin = -8
 
 # # (221-bus UK case)
-# gen_lim_Pmax = 5.0
-# gen_lim_Pmin = -5.0
-# gen_lim_Qmax = 5.0
-# gen_lim_Qmin = -5.0
+gen_lim_Pmax = 5.0
+gen_lim_Pmin = -5.0
+gen_lim_Qmax = 5.0
+gen_lim_Qmin = -5.0
 
 for gen_i = 1:length(eng["generator"])
     for phase = 1:length(eng["generator"]["g"*string(gen_i)]["pg_ub"])
@@ -393,6 +395,9 @@ Therefore, if selecting K=20 intervals, the total number of simulations (points)
 K = 20 # <-- used for the figures in the paper
 # K = 30
 
+
+times_per_OPF = Float64[]   # Writing down the simulation performance
+
 @time begin
 
 global flex_area_results = zeros(2, 2) # combinations of P and Q for the reference (aggregation) node
@@ -455,6 +460,8 @@ for q_interval = range(Qmin, stop = Qmax, length = K)
     global it += 1
     println("Solving the OPF model for q_interval # ", it)
 
+    t_start = time()
+
     local pm_i = instantiate_mc_model(math, ACPUPowerModel, build_mc_opf)
     pm_i.data["per_unit"] = false
 
@@ -506,6 +513,9 @@ for q_interval = range(Qmin, stop = Qmax, length = K)
     end  
 
     local solution_opf_i = optimize_model!(pm_i, optimizer = solver)
+
+    t_end = time()
+    push!(times_per_OPF, t_end - t_start)
 
     global term_status_records = vcat(term_status_records, solution_opf_i["termination_status"])
 
@@ -598,6 +608,8 @@ for p_interval = range(Pmin, stop = Pmax, length = K)
     global it += 1
     println("Solving the OPF model for p_interval # ", it)
 
+    t_start = time()
+
     local pm_i = instantiate_mc_model(math, ACPUPowerModel, build_mc_opf)
     pm_i.data["per_unit"] = false
 
@@ -649,6 +661,9 @@ for p_interval = range(Pmin, stop = Pmax, length = K)
     end  
 
     local solution_opf_i = optimize_model!(pm_i, optimizer = solver)
+
+    t_end = time()
+    push!(times_per_OPF, t_end - t_start)
 
     global term_status_records = vcat(term_status_records, solution_opf_i["termination_status"])
 
@@ -844,6 +859,8 @@ println(round(c_hull_area, digits = 2))
 # println("c_hull_area/reference_valuse*100% = ", round(c_hull_area/1721.72*100, digits=2),"%")
 
 
+println()
+println("Mean time per OPF = ",round(mean(times_per_OPF),digits=3)," seconds")
 
 # # Save the figure:
 

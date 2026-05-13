@@ -33,8 +33,8 @@ include("../functions/build_phase_coordination_constraints.jl")
 # # Select a case to analyse:
 
 # eng = parse_file("../cases/5_bus_case_illustrative/LV_balanced_flex_balanced.dss")
-# eng = parse_file("../cases/5_bus_case_illustrative/LV_unbalanced_flex_balanced.dss")
-eng = parse_file("../cases/5_bus_case_illustrative/LV_unbalanced_flex_unbalanced.dss")
+eng = parse_file("../cases/5_bus_case_illustrative/LV_unbalanced_flex_balanced.dss")
+# eng = parse_file("../cases/5_bus_case_illustrative/LV_unbalanced_flex_unbalanced.dss")
 
 # eng = parse_file("../cases/221_bus_real_UK_case/Master_221_bus_UK.dss")
 
@@ -57,16 +57,16 @@ eng["settings"]["power_scale_factor"] = 1000
 # # Set the P-Q limits for flexible generators (in kW and kVAr):
 
 # # (5-bus case)
-# gen_lim_Pmax = 8
-# gen_lim_Pmin = -8
-# gen_lim_Qmax = 8
-# gen_lim_Qmin = -8
+gen_lim_Pmax = 8
+gen_lim_Pmin = -8
+gen_lim_Qmax = 8
+gen_lim_Qmin = -8
 
 # # (221-bus UK case)
-gen_lim_Pmax = 5.0
-gen_lim_Pmin = -5.0
-gen_lim_Qmax = 5.0
-gen_lim_Qmin = -5.0
+# gen_lim_Pmax = 5.0
+# gen_lim_Pmin = -5.0
+# gen_lim_Qmax = 5.0
+# gen_lim_Qmin = -5.0
 
 for gen_i = 1:length(eng["generator"])
     for phase = 1:length(eng["generator"]["g"*string(gen_i)]["pg_ub"])
@@ -390,9 +390,9 @@ Therefore, if selecting K=20 intervals, the total number of simulations (points)
 # K = 2
 # K = 3
 # K = 5
-# K = 10
+K = 10
 # K = 15
-K = 20 # <-- used for the figures in the paper
+# K = 20 # <-- used for the figures in the paper
 # K = 30
 
 

@@ -33,8 +33,8 @@ include("../functions/build_phase_coordination_constraints.jl")
 # # Select a case to analyse:
 
 # eng = parse_file("../cases/5_bus_case_illustrative/LV_balanced_flex_balanced.dss")
-eng = parse_file("../cases/5_bus_case_illustrative/LV_unbalanced_flex_balanced.dss")
-# eng = parse_file("../cases/5_bus_case_illustrative/LV_unbalanced_flex_unbalanced.dss")
+# eng = parse_file("../cases/5_bus_case_illustrative/LV_unbalanced_flex_balanced.dss")
+eng = parse_file("../cases/5_bus_case_illustrative/LV_unbalanced_flex_unbalanced.dss")
 
 # eng = parse_file("../cases/221_bus_real_UK_case/Master_221_bus_UK.dss")
 
@@ -104,8 +104,8 @@ aggregation_line_number = 6 # for testing the 5-bus system (line from source bus
 
 
 # # Imosing voltage unbalance constraints:
-global impose_vuf_constraints = false # <-- no additional voltage unbalance constraints (P-Q flexibility areas should not be reduced)
-# global impose_vuf_constraints = true # <-- impose VUF limits (P-Q flexibility areas may be reduced)
+# global impose_vuf_constraints = false # <-- no additional voltage unbalance constraints (P-Q flexibility areas should not be reduced)
+global impose_vuf_constraints = true # <-- impose VUF limits (P-Q flexibility areas may be reduced)
 
 # # Set the VUF limit for simulations (if imposing voltage unbalance constraints):
 # global vuf_threshold = 0.02 # note that 2% is 0.02
@@ -154,8 +154,8 @@ global vuf_constrained_buses = [] # <-- no specific buses defined
 
 
 # # Introduce phase coordination constraints:
-global impose_phase_coordination_constraints = false # <-- If false, no additional constraints are imposed (P-Q flexibility areas will not be reduced)
-# global impose_phase_coordination_constraints = true # <-- If true, phase coordination constraints are imposed (P-Q flexibility areas will be reduced significantly)
+# global impose_phase_coordination_constraints = false # <-- If false, no additional constraints are imposed (P-Q flexibility areas will not be reduced)
+global impose_phase_coordination_constraints = true # <-- If true, phase coordination constraints are imposed (P-Q flexibility areas will be reduced significantly)
 
 
 # # Now, the mathematical model is formulated below:
@@ -390,9 +390,9 @@ Therefore, if selecting K=20 intervals, the total number of simulations (points)
 # K = 2
 # K = 3
 # K = 5
-K = 10
+# K = 10
 # K = 15
-# K = 20 # <-- used for the figures in the paper
+K = 20 # <-- used for the figures in the paper
 # K = 30
 
 

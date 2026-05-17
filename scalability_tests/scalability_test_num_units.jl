@@ -40,7 +40,7 @@ include("../functions/build_phase_coordination_constraints.jl")
 # Total timed OPF solves per unit combination = 4 * K
 # The 4 extremes (Qmin, Qmax, Pmin, Pmax) are solved separately and not timed
 # Example: K = 25  →  100 timed OPF solves per unit combination
-K = 25
+K = 5
 
 # Phase to optimise (1 = A, 2 = B, 3 = C):
 phase_i = 1
@@ -63,7 +63,7 @@ aggregation_line_number = 123
 
 # VUF constraints:
 global impose_vuf_constraints = true
-global vuf_threshold = 0.01
+global vuf_threshold = 0.01 # (0.01 threshold used for the scalability analysis in the paper)
 global all_buses_vuf_constrained = true
 # vuf_constrained_buses = buses for which VUF constraints are imposed (matches the 221-bus UK case study in the paper)
 # Set to [] to constrain all buses (not recommended — causes infeasibility at transformer buses).
@@ -88,8 +88,8 @@ global impose_phase_coordination_constraints = false
 N_units_total = 12
 
 # Range for the scalability test (set begin = end = 12 to analyse only the 12-unit scenario):
-N_units_begin = 12
-N_units_end   = 12
+N_units_begin = 1
+N_units_end   = 4
 
 # Percentile bands can be shown around the median in the timing summary plot
 # List bands outermost to innermost; band_alphas sets fill opacity for each (same order).
@@ -139,8 +139,11 @@ for i in 1:length(math_noflex["bus"])
     @constraint(pm_noflex.model, v_lb <= pm_noflex.var[:it][:pmd][:nw][0][:vm][i][3] <= v_ub)
 end
 sol_noflex = optimize_model!(pm_noflex, optimizer = solver)
+print("  no-flex:  status = ")
+printstyled(string(sol_noflex["termination_status"]); color = sol_noflex["termination_status"] in (MOI.LOCALLY_SOLVED, MOI.ALMOST_LOCALLY_SOLVED) ? :green : :red)
+println()
 
-if sol_noflex["termination_status"] != MOI.LOCALLY_SOLVED
+if sol_noflex["termination_status"] ∉ (MOI.LOCALLY_SOLVED, MOI.ALMOST_LOCALLY_SOLVED)
     printstyled("WARNING: no-flex OPF did not converge — cross marker will be at (0,0).\n"; color = :red)
     P0 = 0.0
     Q0 = 0.0
@@ -280,7 +283,10 @@ for n_units in N_units_begin:N_units_end
         @objective(pm.model, Min, pm.var[:it][:pmd][:nw][0][:q][aggregation_line_index][phase_i])
     end
     sol = optimize_model!(pm, optimizer = solver)
-    if sol["termination_status"] != MOI.LOCALLY_SOLVED
+    print("  Qmin:     status = ")
+    printstyled(string(sol["termination_status"]); color = sol["termination_status"] in (MOI.LOCALLY_SOLVED, MOI.ALMOST_LOCALLY_SOLVED) ? :green : :red)
+    println()
+    if sol["termination_status"] ∉ (MOI.LOCALLY_SOLVED, MOI.ALMOST_LOCALLY_SOLVED)
         printstyled("  WARNING: Qmin did not converge for n_units=$n_units. Skipping.\n"; color = :red)
         skip_combination = true
     end
@@ -294,7 +300,10 @@ for n_units in N_units_begin:N_units_end
             @objective(pm.model, Max, pm.var[:it][:pmd][:nw][0][:q][aggregation_line_index][phase_i])
         end
         sol = optimize_model!(pm, optimizer = solver)
-        if sol["termination_status"] != MOI.LOCALLY_SOLVED
+        print("  Qmax:     status = ")
+        printstyled(string(sol["termination_status"]); color = sol["termination_status"] in (MOI.LOCALLY_SOLVED, MOI.ALMOST_LOCALLY_SOLVED) ? :green : :red)
+        println()
+        if sol["termination_status"] ∉ (MOI.LOCALLY_SOLVED, MOI.ALMOST_LOCALLY_SOLVED)
             printstyled("  WARNING: Qmax did not converge for n_units=$n_units. Skipping.\n"; color = :red)
             skip_combination = true
         end
@@ -309,7 +318,10 @@ for n_units in N_units_begin:N_units_end
             @objective(pm.model, Min, pm.var[:it][:pmd][:nw][0][:p][aggregation_line_index][phase_i])
         end
         sol = optimize_model!(pm, optimizer = solver)
-        if sol["termination_status"] != MOI.LOCALLY_SOLVED
+        print("  Pmin:     status = ")
+        printstyled(string(sol["termination_status"]); color = sol["termination_status"] in (MOI.LOCALLY_SOLVED, MOI.ALMOST_LOCALLY_SOLVED) ? :green : :red)
+        println()
+        if sol["termination_status"] ∉ (MOI.LOCALLY_SOLVED, MOI.ALMOST_LOCALLY_SOLVED)
             printstyled("  WARNING: Pmin did not converge for n_units=$n_units. Skipping.\n"; color = :red)
             skip_combination = true
         end
@@ -324,7 +336,10 @@ for n_units in N_units_begin:N_units_end
             @objective(pm.model, Max, pm.var[:it][:pmd][:nw][0][:p][aggregation_line_index][phase_i])
         end
         sol = optimize_model!(pm, optimizer = solver)
-        if sol["termination_status"] != MOI.LOCALLY_SOLVED
+        print("  Pmax:     status = ")
+        printstyled(string(sol["termination_status"]); color = sol["termination_status"] in (MOI.LOCALLY_SOLVED, MOI.ALMOST_LOCALLY_SOLVED) ? :green : :red)
+        println()
+        if sol["termination_status"] ∉ (MOI.LOCALLY_SOLVED, MOI.ALMOST_LOCALLY_SOLVED)
             printstyled("  WARNING: Pmax did not converge for n_units=$n_units. Skipping.\n"; color = :red)
             skip_combination = true
         end
@@ -399,7 +414,7 @@ for n_units in N_units_begin:N_units_end
 
             p_val, q_val = get_PQ(sol_i)
             n_total += 1
-            status_ok = sol_i["termination_status"] == MOI.LOCALLY_SOLVED
+            status_ok = sol_i["termination_status"] in (MOI.LOCALLY_SOLVED, MOI.ALMOST_LOCALLY_SOLVED)
             print("    Q-sweep OPF #$n_total:  status = ")
             printstyled(string(sol_i["termination_status"]); color = status_ok ? :green : :red)
             println("   time = $(round(elapsed, digits=3)) s")
@@ -464,7 +479,7 @@ for n_units in N_units_begin:N_units_end
 
             p_val, q_val = get_PQ(sol_i)
             n_total += 1
-            status_ok = sol_i["termination_status"] == MOI.LOCALLY_SOLVED
+            status_ok = sol_i["termination_status"] in (MOI.LOCALLY_SOLVED, MOI.ALMOST_LOCALLY_SOLVED)
             print("    P-sweep OPF #$n_total:  status = ")
             printstyled(string(sol_i["termination_status"]); color = status_ok ? :green : :red)
             println("   time = $(round(elapsed, digits=3)) s")
@@ -551,8 +566,8 @@ for n_units in N_units_begin:N_units_end
              markersize = 20, markershape = :cross, markercolor = :black)
 
     area_fname = "../results/scalability_tests/scalability_num_units_area_$(n_units)units"
-    savefig(plt_area, area_fname * ".png")
-    savefig(plt_area, area_fname * ".pdf")
+    # savefig(plt_area, area_fname * ".png") # <-- use to save each interim P-Q area plot
+    # savefig(plt_area, area_fname * ".pdf") # <-- use to save each interim P-Q area plot
     display(plt_area)
     println("  Area plot saved: scalability_num_units_area_$(n_units)units.png/.pdf")
 

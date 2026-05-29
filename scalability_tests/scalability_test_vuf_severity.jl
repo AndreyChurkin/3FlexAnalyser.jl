@@ -82,7 +82,7 @@ global exclude_buses_from_vuf_constraints = []   # required global for build_vuf
 # VUF threshold values to test (in per-unit; e.g. 0.01 = 1.0%):
 # List from loosest to tightest so easier cases run first
 # vuf_thresholds_to_test = [0.015, 0.014, 0.013, 0.012, 0.011, 0.010, 0.009, 0.008, 0.007, 0.006, 0.005]
-vuf_thresholds_to_test = [0.014]
+vuf_thresholds_to_test = [0.006]
 
 
 # Phase coordination constraints (keep false in the scalability tests):

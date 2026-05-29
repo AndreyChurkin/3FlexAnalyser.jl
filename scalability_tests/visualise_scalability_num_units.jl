@@ -1,5 +1,5 @@
 """
-Visualise scalability test results: OPF solve time vs number of flexible units.
+Visualise scalability test results: OPF solve time vs number of flexible units
 
 Reads the CSV with all OPF times produced by scalability_test_num_units.jl and creates
 the violin plot without re-running any OPF simulations.

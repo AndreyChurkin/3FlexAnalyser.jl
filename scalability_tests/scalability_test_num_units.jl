@@ -42,16 +42,21 @@ include("../functions/build_phase_coordination_constraints.jl")
 # Total timed OPF solves per unit combination = 4 * K
 # The 4 extremes (Qmin, Qmax, Pmin, Pmax) are solved separately and not timed
 # Example: K = 25  →  100 timed OPF solves per unit combination
-K = 5
+K = 25
 
 # Phase to optimise (1 = A, 2 = B, 3 = C):
 phase_i = 1
 
-# P-Q limits for all flexible generators (kW and kVAr):
+# P-Q limits for all flexible generators (were ±5 kW and kVAr in the paper):
 gen_lim_Pmax =  5.0
 gen_lim_Pmin = -5.0
 gen_lim_Qmax =  5.0
 gen_lim_Qmin = -5.0
+
+# gen_lim_Pmax =  1.0
+# gen_lim_Pmin = -1.0
+# gen_lim_Qmax =  1.0
+# gen_lim_Qmin = -1.0
 
 # Voltage limits (pu):
 v_ub = 1.10
@@ -86,12 +91,15 @@ global exclude_buses_from_vuf_constraints = []   # required global for build_vuf
 # Those are set inside the loop below. If you enable this, ensure compatibility
 global impose_phase_coordination_constraints = false
 
-# Total number of flexible units defined in flex_unit_10.txt (do not change):
+# Case file path and total number of flexible units (must match):
+case_file     = "../cases/221_bus_real_UK_case/Master_221_bus_UK.dss"
 N_units_total = 12
+# case_file     = "../cases/221_bus_real_UK_case/Master_221_bus_UK_test_50_flex_units.dss"
+# N_units_total = 50
 
 # Range for the scalability test (set begin = end = 12 to analyse only the 12-unit scenario):
-N_units_begin = 1
-N_units_end   = 4
+N_units_begin = 12
+N_units_end   = 12
 
 # Percentile bands can be shown around the median in the timing summary plot
 # List bands outermost to innermost; band_alphas sets fill opacity for each (same order).
@@ -128,7 +136,7 @@ reverse_results = true
 println()
 println("Computing no-flex initial operating point ...")
 
-eng_noflex = parse_file("../cases/221_bus_real_UK_case/Master_221_bus_UK.dss")
+eng_noflex = parse_file(case_file)
 eng_noflex["settings"]["sbase_default"] = 1
 eng_noflex["settings"]["power_scale_factor"] = 1000
 delete!(eng_noflex, "generator")
@@ -178,7 +186,7 @@ for n_units in N_units_begin:N_units_end
     println("="^55)
 
     # --- Parse and configure the network ---
-    eng = parse_file("../cases/221_bus_real_UK_case/Master_221_bus_UK.dss")
+    eng = parse_file(case_file)
     eng["settings"]["sbase_default"] = 1
     eng["settings"]["power_scale_factor"] = 1000
 
@@ -669,6 +677,11 @@ scatter!(plt_timing, results_n_units, med_times,
          markersize = 8,
          markershape = :circle,
          label      = "Median")
+
+for (i, m) in enumerate(med_times)
+    annotate!(plt_timing, results_n_units[i], m + 14,
+              text("$(round(m, digits=1))", font(font_size_summary-8, "Courier"), :center))
+end
 
 savefig(plt_timing, "../results/scalability_tests/scalability_num_units.png")
 savefig(plt_timing, "../results/scalability_tests/scalability_num_units.pdf")

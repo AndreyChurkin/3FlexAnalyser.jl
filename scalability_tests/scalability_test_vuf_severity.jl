@@ -670,6 +670,11 @@ scatter!(plt_timing, results_vuf_pct, med_times,
          markershape = :circle,
          label       = "Median")
 
+for (i, m) in enumerate(med_times)
+    annotate!(plt_timing, results_vuf_pct[i], m + 14,
+              text("$(round(m, digits=1))", font(font_size_summary-8, "Courier"), :center))
+end
+
 savefig(plt_timing, "../results/scalability_tests/scalability_vuf_severity.png")
 savefig(plt_timing, "../results/scalability_tests/scalability_vuf_severity.pdf")
 display(plt_timing)

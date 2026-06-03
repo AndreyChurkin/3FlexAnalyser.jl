@@ -1,5 +1,5 @@
 ! ! ! This is a real anonymised low voltage distribution network with 221 buses in the United Kingdom
-//This is the main 221-bus case with 12 flexible units used in the paper
+//This is an additional 221-bus case with many more flexible units placed for flexibility analysis
 
 clear
 
@@ -14,7 +14,7 @@ Redirect lv_fuse_221_bus_UK.txt
 Redirect lv_linkway_221_bus_UK.txt
 Redirect lv_service_221_bus_UK.txt
 
-Redirect flex_unit_12.txt
+Redirect flex_unit_50.txt
 
 //Some settings for simulation
 !set voltagebases=[11,(0.23 3 sqrt *), 0.23]

@@ -42,7 +42,7 @@ include("../functions/build_phase_coordination_constraints.jl")
 # Total timed OPF solves per combination = 4 * K
 # The 4 extremes (Qmin, Qmax, Pmin, Pmax) are solved separately and not timed
 # Example: K = 25  →  100 timed OPF solves per combination
-K = 5
+K = 25
 
 # Phase to optimise (1 = A, 2 = B, 3 = C):
 phase_i = 1
@@ -67,8 +67,17 @@ global impose_vuf_constraints = true
 global all_buses_vuf_constrained = true
 global vuf_threshold = 0.01   # fixed VUF limit used across all combinations (1.0%)
 
-# Full ordered list of buses that can be VUF-constrained.
-# Buses are added one by one in this order as n_locations increases.
+# Full ordered list of buses that can be VUF-constrained
+# Buses are added one by one in this order as n_locations increases
+# vuf_constrained_buses_all = [
+#     "bus_36049497_01",
+#     "bus_36067332_01",
+#     "bus_36067558_01",
+#     "bus_36049503_01",
+#     "bus_36049305",
+#     "bus_36041228_01",
+#     "bus_36049000_01"
+# ] # <-- a small set of buses used in the paper
 vuf_constrained_buses_all = [
     "bus_36049497_01",
     "bus_36067332_01",
@@ -76,8 +85,55 @@ vuf_constrained_buses_all = [
     "bus_36049503_01",
     "bus_36049305",
     "bus_36041228_01",
-    "bus_36049000_01"
-]
+    "bus_36049000_01",
+    "bus_539393275",
+    "bus_36041543_01",
+    "bus_36079959", # <--
+    "bus_36067928",
+    "bus_36041258_01",
+    "bus_36048843",
+    "bus_36061716_01",
+    "bus_36041546",
+    "bus_36041560_01",
+    "bus_36049323",
+    "bus_36049486_01",
+    "bus_36040624",
+    "bus_36048982_01",
+    "bus_36041846",
+    "bus_36041151",
+    "bus_36041816",
+    "bus_36048935_01",
+    "bus_36067288",
+    "bus_36052452",
+    "bus_36052458",
+    "bus_36040958",
+    "bus_36041809",
+    "bus_522225317",
+    "bus_36061717",
+    "bus_36082682",
+    "bus_36079885_01",
+    "bus_36041814",
+    "bus_36059310",
+    "bus_36061704",
+    "bus_36048851",
+    "bus_36052580",
+    "bus_36041852_01",
+    "bus_36049413_01",
+    "bus_36079960",
+    "bus_500203758",
+    "bus_36052576",
+    "bus_36085587_36085583",
+    "bus_36049449",
+    "bus_36085578",
+    "bus_36061721",
+    "bus_36041876",
+    "bus_36049488_01",
+    "bus_492757287",
+    "bus_36086054_01",
+    "bus_36041785",
+    "bus_519645832",
+    "bus_36041363"
+] # <-- a larger set for testing up to 60 VUF-constrained locations (WARNING - may not converge)
 
 # exclude_buses_from_vuf_constraints is recomputed inside the loop for each n_locations
 global exclude_buses_from_vuf_constraints = []   # required global for build_vuf_constraint_allbus
@@ -533,7 +589,7 @@ for n_locations in n_locations_begin:n_locations_end
 
         xlabel      = "P, kW",
         ylabel      = "Q, kVAr",
-        title          = "n_locations=$n_locations  |  VUF=$(round(vuf_threshold*100,digits=2))%  |  K=$K  |  Phase=$phase_i",
+        title          = "n_loc=$n_locations | VUF=$(round(vuf_threshold*100,digits=2))% | K=$K | Phase=$phase_i",
         titlefontsize  = font_size - 4,
         titlefontweight = :bold,
         xtickfontsize  = font_size, ytickfontsize = font_size,

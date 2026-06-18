@@ -1,6 +1,7 @@
 """
 This is the main code for calculating P-Q flexibility areas, plotting them,
 and imposing voltage unbalance and phase coordination constraints.
+
 The code reads data about the network and flexibility from /cases in the OpenDSS format (.dss).
 Yet, many parameters of the simulations have to be specified in this code to produce correct simulations.
 For example, it is necessary to select the case study (.dss file), P-Q limits of flexible units,
@@ -10,7 +11,7 @@ voltage unbalance constraints, phase coordination constraints, some plotting par
 
 This code is not perfect and may be further improved.
 There is still ongoing work and research as we prepare a manuscript for an IEEE Transactions journal.
-Nonetheless, as of August 2024, the code works reliably and reasonably fast for the two included case studies.
+Nonetheless, as of June 2026, the code works reliably and reasonably fast for the two included case studies.
 A more detailed description can be found on GitHub and in the manuscript https://arxiv.org/abs/2408.06516
 
 Andrey Churkin https://andreychurkin.ru/
@@ -19,8 +20,11 @@ Andrey Churkin https://andreychurkin.ru/
 
 using PowerModelsDistribution
 using JuMP, Ipopt
-
 using Statistics
+using JLD
+using Plots, Plots.PlotMeasures
+using LazySets, Polyhedra
+using ConcaveHull
 
 cd(dirname(@__FILE__))
 
@@ -29,6 +33,10 @@ include("../functions/build_VUF_constraint.jl")
 include("../functions/build_VUF_constraint_all_bus.jl")
 include("../functions/build_phase_coordination_constraints.jl")
 
+
+# ============================================================
+# SIMULATION SETTINGS
+# ============================================================
 
 # # Select a case to analyse:
 
@@ -104,8 +112,8 @@ aggregation_line_number = 6 # for testing the 5-bus system (line from source bus
 
 
 # # Imosing voltage unbalance constraints:
-# global impose_vuf_constraints = false # <-- no additional voltage unbalance constraints (P-Q flexibility areas should not be reduced)
-global impose_vuf_constraints = true # <-- impose VUF limits (P-Q flexibility areas may be reduced)
+global impose_vuf_constraints = false # <-- no additional voltage unbalance constraints (P-Q flexibility areas should not be reduced)
+# global impose_vuf_constraints = true # <-- impose VUF limits (P-Q flexibility areas may be reduced)
 
 # # Set the VUF limit for simulations (if imposing voltage unbalance constraints):
 # global vuf_threshold = 0.02 # note that 2% is 0.02
@@ -154,14 +162,45 @@ global vuf_constrained_buses = [] # <-- no specific buses defined
 
 
 # # Introduce phase coordination constraints:
-# global impose_phase_coordination_constraints = false # <-- If false, no additional constraints are imposed (P-Q flexibility areas will not be reduced)
-global impose_phase_coordination_constraints = true # <-- If true, phase coordination constraints are imposed (P-Q flexibility areas will be reduced significantly)
+global impose_phase_coordination_constraints = false # <-- If false, no additional constraints are imposed (P-Q flexibility areas will not be reduced)
+# global impose_phase_coordination_constraints = true # <-- If true, phase coordination constraints are imposed (P-Q flexibility areas will be reduced significantly)
+
+
+# # Select the number of intervals K for the P-Q sweep:
+"""
+Note that each interval requires computing OPF for 2 points (minimisation and maximisation).
+Plus, the intervals are computed for P and Q in separate loops.
+Therefore, if selecting K=20 intervals, the total number of simulations (points) will be 20*2*2=80.
+"""
+# K = 2
+# K = 3
+# K = 5
+# K = 10
+# K = 15
+K = 20  # used for figures in the paper
+# K = 30
+
+# # Solver settings:
+solver = JuMP.optimizer_with_attributes(Ipopt.Optimizer, "print_level"=>1)
+# solver = JuMP.optimizer_with_attributes(Ipopt.Optimizer, "print_level"=>1,"tol"=>1e-9)
+
+# # Output file names (saved to results/):
+jld_name = "test_1.jld"
+
+figure_name = "test_1"
+
+# # Plotting parameters:
+reverse_results = false # set true if power flow results are negative due to branch indexing convention (used in the 221-bus case)
+
+zoom_out  = 2.0  # kVA, extra margin around the P-Q area
+
+font_size = 26
+
+# ============================================================
+
 
 
 # # Now, the mathematical model is formulated below:
-
-solver = JuMP.optimizer_with_attributes(Ipopt.Optimizer, "print_level"=>1)
-# solver = JuMP.optimizer_with_attributes(Ipopt.Optimizer, "print_level"=>1,"tol"=>1e-9)
 
 math = transform_data_model(eng)
 
@@ -380,21 +419,7 @@ println("Total reactive loss = ",total_gen_kVAr-total_load_kVAr,", ", round((tot
 
 
 ## Building the flexibility areas:
-
-# # Select the number of intervals:
-"""
-Note that each interval requires computing OPF for 2 points (minimisation and maximisation).
-Plus, the intervals are computed for P and Q in separate loops.
-Therefore, if selecting K=20 intervals, the total number of simulations (points) will be 20*2*2=80.
-"""
-# K = 2
-# K = 3
-# K = 5
-# K = 10
-# K = 15
-K = 20 # <-- used for the figures in the paper
-# K = 30
-
+# (K is defined in SIMULATION SETTINGS above)
 
 times_per_OPF = Float64[]   # Writing down the simulation performance
 
@@ -737,18 +762,7 @@ end # @time
 
 
 # # Save the flexibility estimation results to JLD:
-using JLD
-# jld_name = "221bus_UK_phaseA_no_constraints.jld"
-# jld_name = "221bus_UK_phaseA_nocoordination_noVUF.jld"
-# jld_name = "221bus_UK_phaseA_nocoordination_VUF0.005.jld"
-# jld_name = "221bus_UK_phaseB_no_constraints.jld"
-# jld_name = "221bus_UK_phaseB_nocoordination_noVUF.jld"
-# jld_name = "221bus_UK_phaseB_nocoordination_VUF0.005.jld"
-# jld_name = "221bus_UK_phaseC_no_constraints.jld"
-# jld_name = "221bus_UK_phaseC_nocoordination_noVUF.jld"
-# jld_name = "221bus_UK_phaseC_nocoordination_VUF0.005.jld"
-jld_name = "test_1.jld"
-
+# (jld_name is defined in SIMULATION SETTINGS above)
 save("../results/"*jld_name
      , "flex_area_results",flex_area_results
      , "flex_area_results_0",flex_area_results_0
@@ -758,13 +772,7 @@ save("../results/"*jld_name
 
 
 # # plotting the P-Q flexibility area:
-
-using Plots, Plots.PlotMeasures
-using LazySets, Polyhedra
-using ConcaveHull
-
-reverse_results = false
-# reverse_results = true # use "true" if the power flow results are negative due to the branch's indexing (to plot them as positive)
+# (reverse_results, zoom_out, font_size are defined in SIMULATION SETTINGS above)
 
 if reverse_results == true
     global plot_flex_area_results = -1*flex_area_results
@@ -779,15 +787,7 @@ end
 points = N -> [plot_flex_area_results[i,:] for i in 1:N]
 v = points(size(plot_flex_area_results)[1])
 
-# # Plotting parameter used to zoom out from the P-Q flexibility area:
-# zoom_out = 1.0 # kVA
-zoom_out = 2.0 # kVA
-
 N_flex_gen = length(eng["generator"]) # number of flexible generators
-
-# # Adjust font size in the figures:
-# font_size = 30
-font_size = 26
 
 if phase_i == 1
     global boundary_color = palette(:tab10)[1]
@@ -863,34 +863,7 @@ println()
 println("Mean time per OPF = ",round(mean(times_per_OPF),digits=3)," seconds")
 
 # # Save the figure:
-
-# figure_name = "5bus_test2"
-# figure_name = "5bus_bal_flex_bal"
-# figure_name = "5bus_unbal_flex_bal_phaseC"
-# figure_name = "5bus_unbal_flex_unbal_phaseB_noVUF"
-# figure_name = "5bus_unbal_flex_unbal_phaseB_VUF0.001"
-# figure_name = "5bus_unbal_flex_unbal_phaseA_noVUF"
-# figure_name = "5bus_unbal_flex_unbal_nocoordination_phaseA_noVUF"
-# figure_name = "5bus_unbal_flex_unbal_nocoordination_phaseA_VUF0.001"
-# figure_name = "5bus_unbal_flex_unbal_phaseB_noVUF"
-# figure_name = "5bus_unbal_flex_unbal_nocoordination_phaseB_noVUF"
-# figure_name = "5bus_unbal_flex_unbal_nocoordination_phaseB_VUF0.001"
-# figure_name = "5bus_unbal_flex_unbal_phaseС_noVUF"
-# figure_name = "5bus_unbal_flex_unbal_nocoordination_phaseС_noVUF"
-# figure_name = "5bus_unbal_flex_unbal_nocoordination_phaseС_VUF0.001"
-
-# figure_name = "221bus_UK_phaseA_no_constraints"
-# figure_name = "221bus_UK_phaseA_nocoordination_noVUF"
-# figure_name = "221bus_UK_phaseA_nocoordination_VUF0.01"
-# figure_name = "221bus_UK_phaseB_no_constraints"
-# figure_name = "221bus_UK_phaseB_nocoordination_noVUF"
-# figure_name = "221bus_UK_phaseB_nocoordination_VUF0.01"
-# figure_name = "221bus_UK_phaseC_no_constraints"
-# figure_name = "221bus_UK_phaseC_nocoordination_noVUF"
-# figure_name = "221bus_UK_phaseC_nocoordination_VUF0.01"
-
-figure_name = "test_1"
-
+# (figure_name is defined in SIMULATION SETTINGS above)
 savefig("../results/"*figure_name*".svg")
 savefig("../results/"*figure_name*".png")
 savefig("../results/"*figure_name*".pdf")

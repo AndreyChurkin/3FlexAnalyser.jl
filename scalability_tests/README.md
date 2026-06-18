@@ -38,18 +38,20 @@ For each test, results are saved to `results/scalability_tests/` as 2 CSV files:
 
 Final plots are saved as `.png` and `.pdf` in the same `results/scalability_tests/` folder.
 
+Furthermore, during each test, an interim P-Q area plot is saved to `results/scalability_tests/`, for example, `scalability_num_units_area_5units.png`. Such plots can be used to analyse the impact of simulation parameters on the aggregated P-Q flexibility.
+
 ---
 
 ## Example
 
 Scalability test with respect to the number of flexible units:
 <p align="center">
-<img src="scalability_example_num_units.png" alt="Scalability — number of flexible units" width="600">
+<img src="scalability_example_num_units.png" alt="Scalability — number of flexible units" width="800">
 </p>
 
 Scalability test with respect to the VUF constraint severity:
 <p align="center">
-<img src="scalability_example_vuf_severity.png" alt="Scalability — VUF constraint severity" width="600">
+<img src="scalability_example_vuf_severity.png" alt="Scalability — VUF constraint severity" width="800">
 </p>
 
 For a detailed discussion of these tests, see the recent version of the manuscript https://arxiv.org/abs/2408.06516
